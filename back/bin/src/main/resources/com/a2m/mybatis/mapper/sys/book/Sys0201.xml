@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.a2m.back.dao.sys.book.Sys0201DAO">
+
+	<resultMap id="bookGenreResultMap" type="java.util.ArrayList">
+		<result property="bookCode" column="BOOKCODE" />
+		<result property="genre_id" column="GENRE_ID" />
+	</resultMap>
+
+	<select id="getBooks"
+		resultType="com.a2m.back.model.sys.book.BookTitle">
+
+		SELECT
+		BOOK_CODE as bookCode,
+		TITLE as title,
+		PUBLISHER as publisher,
+		PRICE as price,
+		PAGES as pages,
+		DESCRIPTION as description,
+		STATUS as
+		status,
+		AUTHOR as author,
+		CREATED_YEAR as createdYear,
+		CATEGORY as
+		category,
+		IMG as img
+		FROM DAUSACH
+
+		<!-- SELECT SACH.BOOK_CODE as bookCode, TITLE as title, PUBLISHER as publisher, 
+			PRICE as price, PAGES as pages, DESCRIPTION as description, SACH.STATUS as 
+			status, AUTHOR as author, CREATED_YEAR as createdYear, CATEGORY as category, 
+			COUNT(SACH.BOOK_CODE) AS quantity FROM DAUSACH JOIN SACH ON DAUSACH.BOOK_CODE 
+			= SACH.BOOK_CODE GROUP BY DAUSACH.BOOK_CODE, DAUSACH.title; -->
+	</select>
+
+	<select id='getBooksLimit' parameterType="map"
+		resultType="com.a2m.back.model.sys.book.BookTitle">
+		SELECT
+		DS.BOOK_CODE as bookCode,
+		DS.TITLE as title,
+		DS.PUBLISHER as publisher,
+		DS.PRICE as price,
+		DS.PAGES as pages,
+		DS.DESCRIPTION as description,
+		DS.STATUS as status,
+		DS.AUTHOR as author,
+		DS.CREATED_YEAR as createdYear,
+		DS.CATEGORY as category
+		FROM DAUSACH AS DS
+		LEFT JOIN
+		SACH AS S ON
+		DS.book_code = S.book_code
+		WHERE
+		DS.TITLE LIKE CONCAT('%', #{search},
+		'%')
+		GROUP BY DS.book_code
+		LIMIT 12
+		offset
+		#{ignore};
+	</select>
+
+	<!-- <select id='getBooksSearch' parameterType="map" resultType="com.a2m.back.model.sys.book.BookTitle"> 
+		SELECT DS.BOOK_CODE as bookCode, DS.TITLE as title, DS.PUBLISHER as publisher, 
+		DS.PRICE as price, DS.PAGES as pages, DS.DESCRIPTION as description, DS.STATUS 
+		as status, DS.AUTHOR as author, DS.CREATED_YEAR as createdYear, DS.CATEGORY 
+		as category, COUNT(S.book_code) AS quantity FROM DAUSACH AS DS LEFT JOIN 
+		SACH AS S ON DS.book_code = S.book_code WHERE DS.TITLE LIKE CONCAT('%', #{search}, 
+		'%') GROUP BY DS.book_code LIMIT 12 offset #{ignore} </select> -->
+
+	<update id="updateBook"
+		parameterType="com.a2m.back.model.sys.book.BookTitle">
+		UPDATE DAUSACH
+		SET TITLE=#{title},
+		PUBLISHER=#{publisher},
+		PRICE=#{price},
+		PAGES=#{pages},
+		DESCRIPTION=#{description},
+		STATUS=#{status},
+		AUTHOR=#{author},
+		CREATED_YEAR=#{createdYear},
+		CATEGORY=#{category}
+		WHERE
+		BOOK_CODE=#{bookCode}
+	</update>
+
+	<select id="checkBookExist"
+		parameterType="com.a2m.back.model.sys.book.BookTitle" resultType="int">
+		SELECT COUNT(*) FROM DAUSACH
+		WHERE TITLE=#{title} AND
+		AUTHOR=#{author}
+		AND
+		BOOK_CODE!=#{bookCode}
+	</select>
+
+	<select id="getBookInfo" parameterType="String"
+		resultType="com.a2m.back.model.sys.book.BookTitle">
+		SELECT
+		DS.BOOK_CODE as bookCode,
+		DS.TITLE as title,
+		DS.PUBLISHER as publisher,
+		DS.PRICE as price,
+		DS.PAGES as pages,
+		DS.DESCRIPTION as description,
+		DS.STATUS as status,
+		DS.AUTHOR as author,
+		DS.CREATED_YEAR as createdYear,
+		DS.CATEGORY as category,
+		DS.IMG as img,
+		COUNT(S.book_code) AS quantity
+		FROM DAUSACH AS DS
+
+		LEFT JOIN SACH AS S ON
+		DS.book_code = S.book_code
+		where DS.BOOK_CODE = #{bookCOde}
+		GROUP BY
+		DS.book_code
+	</select>
+
+	<insert id="addBookTitle"
+		parameterType="com.a2m.back.model.sys.book.BookTitle">
+		INSERT INTO DAUSACH (BOOK_CODE, TITLE, PUBLISHER, PRICE,
+		PAGES, DESCRIPTION, STATUS, AUTHOR, CREATED_YEAR, CATEGORY) VALUES (
+		#{bookCode},
+		#{title},
+		#{publisher},
+		#{price},
+		#{pages},
+		#{description},
+		#{status},
+		#{author},
+		#{createdYear},
+		#{category}
+		)
+	</insert>
+
+
+
+	<update id="changeStatus"
+		parameterType="com.a2m.back.model.sys.book.BookTitle">
+		UPDATE DAUSACH
+		SET STATUS=#{status}
+		WHERE
+		BOOK_CODE=#{bookCode}
+	</update>
+
+	<insert id="addBookGenre">
+		INSERT INTO LOAISACH_DAUSACH (BOOK_CODE, GENRE_ID)
+		VALUES(
+		#{bookCode},
+		#{genre_id}
+		)
+	</insert>
+
+	<select id="getBookTitleByGenre" parameterType="int"
+		resultType="com.a2m.back.model.sys.book.BookTitle">
+
+		SELECT
+		BOOK_CODE as bookCode,
+		TITLE as title,
+		PUBLISHER as publisher,
+		PRICE as price,
+		PAGES as pages,
+		DESCRIPTION as description,
+		STATUS as
+		status,
+		AUTHOR as author,
+		CREATED_YEAR as createdYear,
+		CATEGORY as
+		category,
+		IMG as img
+		FROM DAUSACH WHERE BOOK_CODE IN (
+		SELECT BOOK_CODE FROM LOAISACH_DAUSACH WHERE GENRE_ID = #{genre_id}
+		)
+
+	</select>
+
+		<!-- SELECT SACH.BOOK_CODE as bookCode, TITLE as title, PUBLISHER as publisher, 
+			PRICE as price, PAGES as pages, DESCRIPTION as description, SACH.STATUS as 
+			status, AUTHOR as author, CREATED_YEAR as createdYear, CATEGORY as category, 
+			COUNT(SACH.BOOK_CODE) AS quantity FROM DAUSACH JOIN SACH ON DAUSACH.BOOK_CODE 
+			= SACH.BOOK_CODE GROUP BY DAUSACH.BOOK_CODE, DAUSACH.title; -->
+
+	<select id='countTotalBookTitle' parameterType="String">
+		select count(*)
+		from DAUSACH where TITLE LIKE CONCAT('%', #{search},
+		'%');
+	</select>
+</mapper>

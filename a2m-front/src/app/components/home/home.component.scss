@@ -1,0 +1,176 @@
+.container {
+  min-height: 786px;
+  display: flex;
+  justify-content: center;
+}
+
+.main {
+  flex: 1;
+  /* Sử dụng toàn bộ không gian còn lại cho div main */
+}
+
+.row {
+  margin: 20px 0px;
+  justify-content: center;
+}
+
+.item-book {
+  width: 22%;
+  margin-right: 30px;
+  padding-bottom: 5px;
+  height: 345px;
+  flex-direction: column;
+  position: relative;
+}
+
+
+.foter {
+  position: absolute;
+  z-index: 1;
+  top: 50%;
+}
+
+.img-book {
+  width: 100%;
+  height: auto;
+  margin: 10px 0px;
+  position: relative;
+}
+
+.title-book {
+  font-size: 16px;
+  font-family: Helvetica, Arial;
+  color: rgba(0, 0, 0, 0.8);
+}
+
+.btn_add {
+  border: 0;
+  padding: 5px;
+  border-radius: 100px;
+  z-index: 1;
+  left: 85%;
+  top: 5%;
+}
+
+.btn_add:hover {
+  background-color: rgb(214, 219, 255);
+}
+
+.img_add {
+  width: 25px;
+  height: 25px;
+}
+
+.disabled {
+  cursor: not-allowed;
+}
+
+.book_author {
+  margin: 0;
+  padding-top: 3px;
+  align-self: center;
+  font-size: 13px;
+  color: #3f2eff;
+  font-weight: 500;
+  margin-bottom: 5px;
+}
+
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
+
+// Phân trang
+
+.pagination {
+  text-align: center;
+  margin-top: 20px;
+  margin-left: 38%;
+}
+
+.pagination-list {
+  display: inline-block;
+  padding: 0;
+  margin: 0;
+}
+
+.pagination-list i {
+  font-size: 20px;
+  margin: 0 10px;
+}
+
+.pagination-list li {
+  list-style: none;
+  display: inline;
+  margin: 0 5px;
+}
+
+.pagination-list li a {
+  display: inline-block;
+  padding: 5px 10px;
+  text-decoration: none;
+  border: 1px solid #ccc;
+  background-color: #f9f9f9;
+  color: #333;
+}
+
+.pagination-list li a:hover {
+  background-color: #ddd;
+}
+
+/* CSS để hiển thị tooltip */
+.btn_add {
+  position: relative;
+  /* Đảm bảo tooltip nằm trong phạm vi của nút */
+}
+
+/* Ẩn tooltip ban đầu */
+.btn_add .tooltiptext {
+  visibility: hidden;
+  width: 120px;
+  background-color: rgb(135, 135, 135);
+  color: white;
+  text-align: center;
+  padding: 5px;
+  border-radius: 5px;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  /* Hiển thị phía trên nút */
+  left: 50%;
+  /* Canh giữa */
+  transform: translateX(-50%);
+  /* Dịch chuyển để căn giữa tooltip */
+  opacity: 0;
+  /* Mặc định ẩn */
+  transition: opacity 0.3s, visibility 0.3s;
+  /* Hiệu ứng hiển thị */
+}
+
+/* Hiển thị tooltip khi di chuột qua nút */
+.btn_add:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1;
+}
+
+.offcanvas-title {
+  color: #ffffff;
+}
+
+.offcanvas-header {
+  padding: 5px;
+}
+
+.navbar-toggler {
+  position: absolute;
+  top: -100%;
+  right: 50%;
+}
+
+.navbar {
+  position: absolute;
+  top: 17.5%;
+  left: 12%;
+}

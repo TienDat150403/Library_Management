@@ -1,0 +1,88 @@
+<div class="container cart_container" style="margin-top: 50px; margin-bottom: 50px;min-height: 786px;">
+    <ng-container *ngIf="notifications.length > 0">
+        <div class="row" style="height: 50px; ">
+            <div class="col-12 d-flex justify-content-end">
+                <p (click)="isReadTrueAll()" type="button">Đánh dấu đã đọc tất cả</p>
+            </div>
+        </div>
+        <hr>
+        <!-- <div *ngFor="let n of notifications"  class="row align-items-end" style="height: 150px;" [ngClass]="{'orange-background': !isAllRead}"> -->
+        <div *ngFor="let n of notifications | paginate: {
+            itemsPerPage: tableSize,
+            currentPage: pageCurrent,
+            totalItems: maxPage * 5}; let i = index"
+            class="row align-items-end shadow p-3 mb-3 bg-body rounded d-flex justify-content-center align-items-center "
+            style="height: 150px;" [style.background-color]="!n.isRead ? '#f8f8f8' : ''">
+            <div class="col-2">
+                <!-- <img src="https://cdn-icons-png.flaticon.com/128/3058/3058953.png" alt="Hình ảnh" class="img-fluid">
+                 -->
+                <img *ngIf="n.about != 0" type="button" style="width: 80px; height: 80px;"
+                    src="https://cdn-icons-png.flaticon.com/128/9546/9546489.png" alt="Hình ảnh">
+                <img *ngIf="n.about == 0" type="button" [src]="listImg[i]" alt="Hình ảnh" class="img-fluid">
+
+            </div>
+            <div class="col-8 d-flex flex-column justify-content-center">
+                <h5 style=" line-height: 1.5">{{n.content}}</h5>
+
+                <!-- <h5 *ngIf="n.about == 1">
+                    Phiếu mượn có mã {{n.notification_id}} đã được đặt thành công
+                    <i    (click)="changeShowDetail(1)"  class="fa fa-angle-down fa-2x" aria-hidden="true" style="margin-top: 5px;"></i>
+                </h5>
+                <h5 *ngIf="n.about == 0">
+                    xxxxxx
+                    <i    (click)="changeShowDetail(1)"  class="fa fa-angle-down fa-2x" aria-hidden="true" style="margin-top: 5px;"></i>
+                </h5> -->
+
+            </div>
+            <div class="col-2 d-flex flex-column justify-content-center align-items-center">
+                <button class="btn btn-primary" (click)="showDetailNotification(n)">Xem chi tiết</button>
+            </div>
+        </div>
+        <div *ngIf="panelExpanded === 1" class="row align-items-end"
+            style="margin-top: 10px;  height: 150px; background-color: #f8f8f8;"></div>
+
+        <!-- //test -->
+        <!-- <div class="row align-items-end" style="height: 150px;" [ngClass]="{'hovered': isHovered}" (mouseenter)="onMouseEnter()" (mouseleave)="onMouseLeave()">
+            <div class="col-2">
+                <img src="https://cdn-icons-png.flaticon.com/128/3058/3058953.png" alt="Hình ảnh" class="img-fluid">
+            </div>
+            <div class="col-8 d-flex flex-column justify-content-center">
+                <h3>Đoạn văn bản của bạn</h3>
+                <p>
+                    Đoạn văn bản của bạn Đoạn văn bản của bạn Đoạn văn bản của bạn Đoạn văn bản của bạn
+                    Đoạn văn bản của bạn Đoạn văn bản của bạn Đoạn văn bản của bạn Đoạn văn bản của bạn
+                    Đoạn văn bản của bạn Đoạn văn bản của bạn Đoạn văn bản của bạn Đoạn văn bản của bạn
+                    <i (click)="changeShowDetail(2)"  class="fa fa-angle-down fa-2x" aria-hidden="true" style="margin-top: 5px;"></i>
+                </p>
+                    
+            </div>
+            <div class="col-2 d-flex flex-column justify-content-center align-items-center">
+                <button class="btn btn-primary">Xem chi tiết</button>
+            </div>
+        </div>
+        <div *ngIf="panelExpanded === 2"  class="row align-items-end" style="margin-top: 10px;  height: 150px; background-color: #f8f8f8;"></div> -->
+    </ng-container>
+</div>
+<!-- 
+<nav aria-label="Page navigation">
+    <ul class="pagination" style="justify-content: center;margin: 50px 0px;">
+        <li class="page-item">
+            <a class="page-link" aria-label="Previous" (click)="showPagePrvious()">
+                <span aria-hidden="true">&laquo;</span>
+            </a>
+        </li>
+        <li *ngFor="let i of numbersArray.slice(this.pageCurrent - 1, showMaxPage)" class="page-item"
+            [ngClass]="{'active': pageCurrent === i}"><a class="page-link" style="color: blue;"
+                (click)="appendQueryParam(i)">{{i}}</a></li>
+        <li class="page-item">
+            <a class="page-link" aria-label="Next" (click)="showPageNext()">
+                <span aria-hidden="true">&raquo;</span>
+            </a>
+        </li>
+    </ul>
+</nav> -->
+
+<div>
+    <pagination-controls class="pagination" style="justify-content: center;margin: 50px 0px;" previousLabel=""
+        nextLabel="" (pageChange)="changePage($event)"></pagination-controls>
+</div>

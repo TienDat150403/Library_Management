@@ -1,0 +1,82 @@
+<!-- Hiển thị danh sách phiếu mượn với status là " Đã trả " -->
+<div class="search">
+    <form>
+        <input style="width: 300px;" class="form-control me-2" type="search" placeholder="Nhập tên tài khoản"
+            [(ngModel)]="username" name="searchByUsername">
+    </form>
+    <button type="button" (click)="getDataByUsername()" style="border: #ffffff;background-color: #ffffff;">
+        <img src="https://cdn-icons-png.flaticon.com/128/10975/10975953.png" alt="" style="width: 38px;height: 38px;">
+    </button>
+</div>
+
+<div style="min-height: 786px;">
+    <div style="display: flex; background-color: antiquewhite" class="shadow-sm p-3 mb-3 bg-body rounded">
+        <div class="form-check" style="width: 32%; margin: 0px;">
+            <label class="form-check-label" for="flexCheckDefault" style="font-size: large;font-weight: bold;">
+                Thông tin
+            </label>
+        </div>
+        <p scope="col" style="width: 17%; text-align: center;font-weight: bold" class="content-item">Số lượng sách
+        </p>
+        <p (click)="sortByBorrowDate()" scope="col" style="width: 17%;text-align: center;font-weight: bold"
+            class="content-item">Ngày nhận
+            &nbsp;<i class="fa fa-sort"></i>
+        </p>
+        <p (click)="sortByReturnUpdateReal()" scope="col" style="width: 17%;text-align: center;font-weight: bold"
+            class="content-item">Ngày trả
+            &nbsp;<i class="fa fa-sort"></i>
+        </p>
+        <p scope="col" style="width: 17%;text-align: center;font-weight: bold" class="content-item">Thao tác</p>
+    </div>
+    <div class="content shadow p-3 mb-3 bg-body rounded" *ngFor="let item of list">
+        <div class="item-table d-flex">
+            <div style="display: flex;width: 32%;">
+                <div class="content-con1 d-flex p-2 bd-highlight">
+                    <img src="https://cdn-icons-png.flaticon.com/128/3058/3058953.png" alt="" class="img-item">
+                    <div style="width:200px;margin-top: 15px;">
+                        <div class="d-flex">
+                            <p class="info">{{item.userInfo?.fullName}}</p>
+
+                        </div>
+                        <p class="info">{{item.userInfo?.email}}</p>
+                    </div>
+                </div>
+            </div>
+            <td class="content-item" style="width: 17%">{{item.countBook}}</td>
+            <td class="content-item" style="width: 17%;">{{ item.borrowDateReal | date: 'dd/MM/yyyy' }}</td>
+            <td class="content-item" style="width: 17%; font-style: italic">{{ item.returnUpdateReal |
+                date:'dd/MM/yyyy' }}</td>
+            <div class="content-item" style=" width: 17%;">
+                <a [routerLink]="['/sys/list-phieumuon/chi-tiet-phieu-muon/',item.idPhieuMuon]"
+                    [queryParams]="{ status: item.status }" class="wait_link">
+                    <img src="https://cdn-icons-png.flaticon.com/128/9195/9195785.png" alt="" class="img-info">
+                    <span class="tooltiptext">Chi tiết phiếu</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <ng-container *ngIf="list.length === 0">
+        <p style="font-size: 18px; font-weight: 500; color:red; width: 600px;">
+            Danh sách phiếu trống!!
+        </p>
+    </ng-container>
+</div>
+<nav aria-label="Page navigation" style="margin-bottom:30px;margin-top: 20px;">
+    <ul class="pagination" style="justify-content: center;">
+        <li class="page-item">
+            <a (click)="appendQueryParam(-1)" class="page-link" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+            </a>
+        </li>
+        <li *ngFor="let i of numbersArray" class="page-item">
+            <a class="page-link" (click)="currentPage(+i)" [class.active]="pageCurrent === i">{{i}}</a>
+        </li>
+        <li class="page-item">
+            <button (click)="appendQueryParam(1)" class="page-link" aria-label="Next"
+                [disabled]="pageCurrent === numbersArray.length">
+                <span aria-hidden="true">&raquo;</span>
+            </button>
+        </li>
+    </ul>
+</nav>

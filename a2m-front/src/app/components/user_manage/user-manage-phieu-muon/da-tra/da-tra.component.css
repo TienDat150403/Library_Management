@@ -1,0 +1,69 @@
+.btn {
+    width: 140px;
+    height: max-content;
+    margin-right: 20px;
+}
+
+
+.menu {
+    margin: 20px 0px;
+    align-content: center;
+}
+
+.form-check {
+    margin-top: 35px;
+    margin-left: 10px;
+}
+
+.content-con1 {
+    width: 400px;
+}
+
+.img-item {
+    width: 75px;
+    height: 75px;
+    margin-right: 20px;
+}
+
+.info {
+    margin: 0px;
+    margin-right: 10px;
+    font-weight: 600;
+}
+
+.img-info {
+    height: 40px;
+    width: 40px;
+    margin: 0px 10px;
+}
+
+
+.item-table {
+    border-radius: 10px;
+}
+
+.content-item {
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    text-align: center;
+}
+
+.confirm-all {
+    width: 140px;
+    margin: 6px 0;
+    position: absolute;
+    top: 150px;
+    left: 630px;
+    z-index: 1;
+}
+
+.search {
+    width: 200px;
+    margin: 8px 0;
+    position: absolute;
+    top: 150px;
+    right: 260px;
+    z-index: 1;
+    display: flex
+}

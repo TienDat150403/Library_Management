@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.a2m.back.dao.sys.phieumuon.Sys0301DAO">
+
+	<select id="getAllPhieuMuon" parameterType="int">
+		select USER_UID as
+		userUid, ID_PHIEU_MUON as idPhieuMuon, STATUS as status,
+		EXTENDED_TIMES as extended_times,
+		CREATED_DATE as createdDate,
+		BORROW_DATE as borrowDate, RETURN_DATE_ESTIMATE as returnDateEstimate,
+		RETURN_UPDATE_REAL as returnUpdateReal, FINE as fine,CANCEL_DATE as cancelDate
+		from PHIEUMUON
+		where STATUS = #{STATUS}
+	</select>
+
+	<select id="getPhieuMuonInfo" parameterType="map">
+		select USER_UID as userUid, ID_PHIEU_MUON as idPhieuMuon, STATUS as status, EXTENDED_TIMES as extended_times,
+		CREATED_DATE as createdDate, BORROW_DATE as borrowDate, RETURN_DATE_ESTIMATE as returnDateEstimate,
+		RETURN_UPDATE_REAL as returnUpdateReal, FINE as fine, CANCEL_DATE as cancelDate
+		from PHIEUMUON
+		where STATUS = #{STATUS , jdbcType = INTEGER } AND USER_UID = #{USER_UID, jdbcType=BIGINT};
+	</select>
+
+	<update id="changeStatus" parameterType="com.a2m.back.model.sys.phieumuon.phieumuonDto">
+		UPDATE PHIEUMUON pm
+		JOIN SACHMUON AS sm ON pm.ID_PHIEU_MUON = sm.ID_PHIEU_MUON
+		JOIN SACH AS s ON sm.BOOK_ID = s.BOOK_ID
+		SET pm.STATUS = 1,s.STATUS = 0, BORROW_DATE = NOW(), RETURN_DATE_ESTIMATE = DATE_ADD(NOW(), INTERVAL 14 DAY)
+		WHERE pm.ID_PHIEU_MUON = #{idPhieuMuon} ;
+	</update>
+
+	<select id="getAllUserUid" parameterType="int">
+		select distinct
+		USER_UID as userUid from PHIEUMUON where status =
+		#{STATUS}
+	</select>
+
+	<select id="getCountBook">
+		SELECT COUNT(s.BOOK_ID) AS 'countBook'
+		FROM
+		PHIEUMUON AS pm
+		JOIN SACHMUON AS sm
+		ON pm.ID_PHIEU_MUON = sm.ID_PHIEU_MUON
+		JOIN SACH AS s
+		ON sm.BOOK_ID = s.BOOK_ID
+		Where pm.ID_PHIEU_MUON = #{idPhieuMuon}
+		GROUP
+		BY pm.ID_PHIEU_MUON;
+	</select>
+
+	<select id="getQuantityPhieuOfUser" parameterType="String">
+		select count(*)
+		from PHIEUMUON
+		where USER_UID = #{userUid};
+	</select>
+
+	<select id="selectByPagination" parameterType="int">
+		select USER_UID as userUid, ID_PHIEU_MUON as idPhieuMuon, STATUS as status, EXTENDED_TIMES as extended_times,
+		CREATED_DATE as createdDate, BORROW_DATE as borrowDate,FINE as fine, CANCEL_DATE as cancelDate,
+		RETURN_DATE_ESTIMATE as returnDateEstimate, RETURN_UPDATE_REAL as returnUpdateReal
+		from PHIEUMUON where STATUS = #{STATUS} limit 5 offset #{ignore};
+	</select>
+
+</mapper>

@@ -1,0 +1,125 @@
+<div class="container cart_container" style="min-height: 786px;">
+  <!-- <div *ngIf="cartData.data[0].numInCart === 0;" class="text-center my-5">
+      <h4>Your Cart Is Empty</h4>
+      <button class="btn btn-primary btn-lg mt-3" routerLink="/">GO TO SHOP</button>
+    </div> -->
+
+  <!-- <ng-container *ngIf="cartData.data[0].numInCart !== 0"> -->
+  <ng-container>
+    <div class="cart_empty" *ngIf="bookInWaitList.length == 0">
+      <img
+        src="https://img.freepik.com/premium-vector/shopping-cart-with-cross-mark-wireless-paymant-icon-shopping-bag-failure-paymant-sign-online-shopping-vector_662353-912.jpg"
+        alt="" class="cart_empty-img">
+      <h3 class="cart_empty-msg">Chưa có quyển sách nào được đăng ký.<br> Đăng ký những quyển sách bạn muốn <a
+          routerLink="/" type="button"> tại đây</a></h3>
+    </div>
+    <div class="row" *ngIf="bookInWaitList.length > 0">
+      <div class="col my-4">
+        <!-- <div class="form-check" style="margin-left: 30px;">
+          <input [checked]="selectAll" (click)="selectAllBook()" class="form-check-input" type="checkbox"
+            style="border: 1px solid #0000ff">
+          <label class="form-check-label" for="flexCheckDefault" style="font-size: large;font-weight: bold;">
+            Xác nhận tất cả
+          </label>
+        </div> -->
+
+        <div (click)="borrowMany()" class="d-flex" style="margin-left: 60px;" *ngIf="selectedBook.length > 0">
+          <div class="d-flex w-100 justify-content-between flex-sm-column flex-md-row"
+            style="margin-bottom: 12px; margin-left: 90%;">
+            <button class="btn btn-danger btn-sm order-1">Mượn ngay</button>
+            <!-- <a routerLink="/" class="btn btn-success btn-sm order-0">Mượn ngay</a> -->
+          </div>
+        </div>
+        <table class="table">
+          <thead class="table-primary">
+            <tr class="text-center">
+              <th style="width: 40%;">Sản phẩm</th>
+              <th style="width: 15%">Số lượng còn lại</th>
+              <th style="width: 15%">Số trang</th>
+              <th style="width: 15%">Giá tiền</th>
+              <th style="width: 15%">Thao tác</th>
+            </tr>
+          </thead>
+          <tbody *ngIf="bookInWaitList.length > 0">
+            <h6 *ngIf="bookInWaitListActive.length > 0">
+              Danh sách sản phẩm có thể mượn ngay
+            </h6>
+            <tr *ngFor="let c of bookInWaitListActive; index as i">
+              <td class="align-items-center justify-content-around">
+                <div class="product_cart">
+                  <input type="checkbox" class="checkbox_cart" [(ngModel)]="c.checked"
+                    (change)="updateSelectedBook(c)" />
+                  <a type="button" [routerLink]="['/home/book', c.bookCode]">
+                    <img [src]="listImgActive[i]" class="cart_img" />
+                  </a>
+                  <div class="product_title_author">
+                    <p>Tên: {{ c.title }}</p>
+                    <a type="button">
+                      <p class="info-author">Tác giả: {{ c.author }}</p>
+                    </a>
+                  </div>
+                </div>
+              </td>
+              <td>
+                <p style="margin-top: 28px;"
+                  style="margin-top: 28px; color: red; font-weight: 500px; font-style: italic;">{{ c.quantity }}</p>
+              </td>
+              <td class="collum">
+                {{ c.pages }} trang
+              </td>
+              <td class="collum">
+                <p>{{ c.price | currencySuffix: 'VND':'':'1.0-0'}} vnđ</p>
+              </td>
+              <td>
+                <a type="button" (click)="deleteFromWaitList(c)">
+                  <i class="fa fa-times-circle delete_icon" style="margin-top: 28px;" aria-hidden="true"></i>
+                </a>
+                <a type="button" (click)="addBookToCart(c)">
+                  <i class="fa fa-cart-plus fa-2x" style="margin-top: 28px; margin-left: 10px; color: blue;"
+                    aria-hidden="true"></i>
+                </a>
+              </td>
+            </tr>
+            <h6 *ngIf="bookInWaitListDisable.length > 0">
+              Danh sách đầu sách tạm thời hết sách
+            </h6>
+            <tr class="product_not_active" *ngFor="let c of bookInWaitListDisable; index as i">
+              <td class="align-items-center justify-content-around">
+                <div class="product_cart">
+                  <i class="fa fa-window-close-o icon_disable" aria-hidden="true"></i>
+                  <a type="button">
+                    <img [src]="listImgDisable[i]" alt="{{ c.title }}" class="cart_img" />
+                  </a>
+                  <div class="product_title_author">
+                    <p>Tên: {{ c.title }}</p>
+                    <a type="button">
+                      <p class="info-author">Tác giả: {{ c.author }}</p>
+                    </a>
+                  </div>
+                </div>
+              </td>
+              <td>
+                <p style="margin-top: 28px; color: red; font-weight: 500px; font-style: italic;">{{ c.quantity }}</p>
+              </td>
+              <td>
+                <p style="margin-top: 28px;">{{ c.pages }} trang</p>
+              </td>
+              <!-- <td>
+                <i style="margin-top: 28px;" class="fa fa-check-circle check_icon" aria-hidden="true"></i>
+              </td> -->
+              <td class="collum">
+                <p>{{ c.price | currencySuffix: 'VND':'':'1.0-0'}} vnđ</p>
+              </td>
+              <td>
+                <a type="button" (click)="deleteFromWaitList(c)">
+                  <i class="fa fa-times-circle delete_icon" style="margin-top: 28px;" aria-hidden="true"></i>
+                </a>
+
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </ng-container>
+</div>

@@ -1,0 +1,112 @@
+.btn {
+    width: 140px;
+    height: max-content;
+    margin-right: 20px;
+}
+
+.menu {
+    margin: 20px 0px;
+    align-content: center;
+}
+
+.form-check {
+    margin-top: 35px;
+    margin-left: 10px;
+}
+
+.content-con1 {
+    width: 400px;
+}
+
+.content-item p {
+    margin-bottom: 0px;
+}
+
+.img-item {
+    width: 110px;
+    height: 120px;
+    border-radius: 10px;
+}
+
+.center-left {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-direction: column;
+    padding-left: 10px;
+}
+
+.img-send {
+    height: 25px;
+    width: 25px;
+    margin: 0px 10px;
+}
+
+.img-item:hover {
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+}
+
+.info-author {
+    margin: 0px;
+    padding: 0px;
+}
+
+.info-author:hover {
+    color: blue;
+    font-weight: 500;
+}
+
+.item-table {
+    border-radius: 10px;
+}
+
+.content-item {
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    text-align: center;
+}
+
+/* CSS để hiển thị tooltip */
+.wait_link {
+    position: relative;
+    /* Đảm bảo tooltip nằm trong phạm vi của nút */
+}
+
+/* Ẩn tooltip ban đầu */
+.wait_link .tooltiptext {
+    visibility: hidden;
+    width: 100px;
+    background-color: rgb(135, 135, 135);
+    color: white;
+    text-align: center;
+    padding: 3px;
+    border-radius: 5px;
+    font-size: 13px;
+    position: absolute;
+    z-index: 1;
+    bottom: 120%;
+    /* Hiển thị phía trên nút */
+    left: 50%;
+    /* Canh giữa */
+    transform: translateX(-50%);
+    /* Dịch chuyển để căn giữa tooltip */
+    opacity: 0;
+    /* Mặc định ẩn */
+    transition: opacity 0.3s, visibility 0.3s;
+    /* Hiệu ứng hiển thị */
+}
+
+/* Hiển thị tooltip khi di chuột qua nút */
+.wait_link:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+}
+
+.cacul {
+    border: none;
+    font-size: 20px;
+    color: red;
+    font-weight: bold;
+}

@@ -1,0 +1,110 @@
+<!-- HEADER    -->
+<script>
+  function activateLink(element) {
+    var lis = document.querySelectorAll(".main-nav.nav.py-3 li");
+    // Xóa lớp "active" khỏi tất cả các phần tử <li>
+    for (var i = 0; i < lis.length; i++) {
+      lis[i].classList.remove("active");
+    }
+    // Thêm lớp "active" vào phần tử <li> được nhấp vào
+    element.classList.add("active");
+  }
+</script>
+<header>
+  <!-- MAIN HEADER -->
+  <div id="header">
+    <!-- container -->
+    <div class="container">
+      <!-- row -->
+      <div class="row row_header">
+        <!-- LOGO -->
+        <div class="col-md-3">
+          <div class="header-logo">
+            <a class="logo">
+              <img src="../../../assets/img/logo.png" alt="" />
+            </a>
+          </div>
+        </div>
+        <!-- /LOGO -->
+
+        <!-- SEARCH BAR -->
+        <div class="col-md-8">
+          <div class="header-search">
+            <!-- <form>
+              <input class="input" placeholder="Nhập thể loại sách bạn muốn tìm" name="search" style="width: 450px;" />
+              <button class="search-btn">Tìm kiếm</button>
+            </form>-->
+          </div>
+        </div>
+        <!-- /SEARCH BAR -->
+
+        <!-- ACCOUNT -->
+        <div class="col-md-1 clearfix d-flex">
+          <div class="header-ctn">
+            <div class="user-manage">
+              <ul *ngIf="isAuthenticate" class="header-links pull-right">
+                <li class="user-account">
+                  <img src="https://cdn-icons-png.flaticon.com/128/9977/9977254.png" alt=""
+                    style="width: 40px;height: 40px;margin-left: 25px;">
+                  <ul class="user-menu">
+                    <li class="user-item">
+                      <a routerLink="/sys/userInfo">Tài khoản của tôi</a>
+                    </li>
+                    <!-- <li class="user-item">
+                      <a href="">Đơn mua</a>
+                    </li> -->
+                    <li class="user-item user-item-separate">
+                      <a (click)="logout()">Đăng xuất</a>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+            <!-- /Cart -->
+
+            <div *ngIf="!isAuthenticate" class="d-flex" style="margin: 0px;">
+              <button type="button" class="btn btn-outline-primary btn-sm" (click)="login()">Đăng nhập</button>
+              <button type="button" class="btn btn-outline-primary btn-sm" (click)="login()">Đăng ký</button>
+            </div>
+
+            <!-- Menu Toogle -->
+            <div class="menu-toggle">
+              <a>
+                <i class="fa fa-bars"></i>
+                <span>Menu</span>
+              </a>
+            </div>
+            <!-- /Menu Toogle -->
+          </div>
+        </div>
+        <!-- /ACCOUNT -->
+      </div>
+      <!-- row -->
+    </div>
+    <!-- container -->
+  </div>
+  <!-- /MAIN HEADER -->
+</header>
+<!-- /HEADER -->
+
+<!-- NAVIGATION -->
+<nav id="navigation">
+  <!-- container -->
+  <div class="container">
+    <!-- responsive-nav -->
+    <div id="responsive-nav">
+      <!-- NAV -->
+      <ul #navItems class="main-nav nav py-3">
+        <li><a routerLink="/sys/list-phieumuon/status/0">Quản lý phiếu mượn</a></li>
+        <li><a routerLink="/sys/list-dausach">Quản lý sách</a></li>
+        <li><a routerLink="/sys/list-categories">Quản lý loại sách</a></li>
+        <li><a routerLink="/sys/user-list">Quản lý người dùng</a></li>
+
+      </ul>
+      <!-- /NAV -->
+    </div>
+    <!-- /responsive-nav -->
+  </div>
+  <!-- /container -->
+</nav>
+<!-- /NAVIGATION -->

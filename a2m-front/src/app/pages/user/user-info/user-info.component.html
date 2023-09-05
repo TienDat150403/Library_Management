@@ -1,0 +1,82 @@
+<div class="container">
+  <div class="shadow p-3 mb-3 bg-body rounded " style="margin: 20px 0px;min-height: 786px;">
+    <div class="user_info">
+      <div class="shadow-sm p-3 mb-1 bg-body rounded ">
+        <img [src]="previewImage" alt=""
+          class="user_img" />
+          <div class="input-group d-flex" style="justify-content: center;">
+            <div class="custom-file">
+              <input type="file" class="custom-file-input" (change)="onSelectFile($event)" accept="image/*" id="inputGroupFile02">
+              <label class="custom-file-label" for="inputGroupFile02">Chọn ảnh đại diện</label>
+            </div>
+          </div>
+      </div>
+      <div class="user_form shadow-sm p-3 mb-1 bg-body rounded  ">
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text">Họ và tên</span>
+          </div>
+          <input type="text" aria-label="name" class="form-control" [(ngModel)]="userInfo.fullName" name="fullName">
+        </div>
+        <div class="input-group fullname">
+          <span class="error-message fullname" *ngIf="error_fullname != ''">{{error_fullname}}</span>
+        </div>
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text">Tên tài khoản</span>
+          </div>
+          <input type="text" aria-label="username" class="form-control" [(ngModel)]="userInfo.userId" name="username"
+            readonly>
+        </div>
+        <div class="input-group username">
+          <span class="error-message username" *ngIf="error_username != ''">{{error_username}}</span>
+        </div>
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text">Email</span>
+          </div>
+          <input type="text" aria-label="email" class="form-control" [(ngModel)]='userInfo.email' name="email">
+        </div>
+        <div class="input-group email">
+          <span class="error-message email" *ngIf="error_email != ''">{{error_email}}</span>
+        </div>
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text">Số điện thoại</span>
+          </div>
+          <input type="text" aria-label="phone" class="form-control" [(ngModel)]='userInfo.cellPhone' name="cellPhone">
+        </div>
+        <div class="input-group phone">
+          <span class="error-message phone" *ngIf="error_phone != ''">{{error_phone}}</span>
+        </div>
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text">Địa chỉ</span>
+          </div>
+          <input type="text" aria-label="address" class="form-control" [(ngModel)]='userInfo.address' name="address">
+        </div>
+        <div class="input-group address">
+          <span class="error-message address" *ngIf="error_address != ''">{{error_address}}</span>
+        </div>
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text">Ngày sinh</span>
+          </div>
+          <input type="date" aria-label="dob" class="form-control" [(ngModel)]="dob" name="dob">
+        </div>
+        <div class="gender_checkbox">
+          <span>Nam</span>
+          <input [value]="true" type="radio" aria-label="Radio button for following text input" name="gender"
+            [(ngModel)]="userInfo.gender">
+          <span>Nữ</span>
+          <input [value]="false" type="radio" aria-label="Radio button for following text input" name="gender"
+            [(ngModel)]="userInfo.gender">
+        </div>
+
+        <div class="button_input">
+          <button type="button" class="btn btn-danger" (click)="update()">UPDATE</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

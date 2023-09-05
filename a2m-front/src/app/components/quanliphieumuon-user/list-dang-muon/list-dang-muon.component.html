@@ -1,0 +1,100 @@
+<!-- Hiển thị danh sách phiếu mượn với status là " đang mượn " -->
+<div style="min-height: 786px;">
+    <div style="display: flex; background-color: antiquewhite" class="shadow-sm p-3 mb-3 bg-body rounded">
+        <div class="form-check" style="width: 32%; margin: 0px;">
+            <label class="form-check-label" for="flexCheckDefault" style="font-size: large;font-weight: bold;">
+                Thông tin phiếu mượn
+            </label>
+        </div>
+        <p scope="col" style="width: 26%;text-align: center;font-weight: bold" class="content-item">Thể loại
+        </p>
+        <p scope="col" style="width: 14%; text-align: center;font-weight: bold" class="content-item">Nhà xuất bản
+        </p>
+        <p scope="col" style="width: 14%;text-align: center;font-weight: bold" class="content-item">Số trang</p>
+        <p scope="col" style="width: 14%;text-align: center;font-weight: bold" class="content-item">Giá trị</p>
+    </div>
+
+    <div *ngFor="let pm of phieumuonDto">
+        <div class="shadow p-3 mb-3 bg-body rounded">
+            <div class="content " *ngFor="let item of pm.listBook; index as i">
+                <div class="item-table d-flex">
+                    <div style="display: flex;width: 32%;">
+                        <div class="content-con1 d-flex  bd-highlight">
+                            <a [routerLink]="['/home/book/', item.bookCode]"> <img [src]="listImg[i]" alt=""
+                                    class="img-item">
+                            </a>
+                            <div style="width:300px" class="center-left">
+                                <p style="margin-bottom: 5px;font-weight: 500;">{{ item.title }}</p>
+                                <p type="button" class="info-author" style="margin: 0px;font-size: 15px;">
+                                    Tác giả: {{item.author}}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <td class="content-item" style="width: 26%">
+                        <p *ngFor="let genre of item.genres; let last = last">
+                            <a type="button" [routerLink]="['/user/home/',genre.genre_id]">
+                                {{ (genre.genre_name ? [genre.genre_name] : []) | genreFormat }}{{ !last ? ' , ' : ''
+                                }}&nbsp;
+                            </a>
+                        </p>
+                    </td>
+                    <td class="content-item" style="width: 14%">{{item?.publisher}}</td>
+                    <td class="content-item" style="width: 14%">{{item?.pages}}</td>
+                    <td class="content-item" style="width: 14%; ">
+                        {{item?.price | currencySuffix: 'VND':'':'1.0-0'}}
+                    </td>
+                </div>
+                <hr>
+            </div>
+            <div class="d-flex ">
+
+                <p style="font-size: 22px;color: red; font-weight: bold;" class="col-4">Ngày nhận sách
+                    {{pm.borrowDateReal | date:' dd/MM/yyyy'}}</p>
+                <p style="font-size: 22px;color: red; font-weight: bold;" class="col-6">Ngày trả dự kiến
+                    {{pm.returnDateEstimate | date:' dd/MM/yyyy'}}</p>
+                <div class="col-1"></div>
+                <button (click)="extendReturnDate(pm)" type="button" class="btn btn-outline-danger col-1"
+                    style="display: block;width: auto;">Gia
+                    Hạn</button>
+            </div>
+
+            <ng-container *ngIf="listBook.length === 0">
+                <p style="font-size: 25px; font-weight: bold; color: red;">
+                    Hiện tại bạn chưa tạo phiếu nào</p>
+                <p style="color: black;font-weight: bold; font-style: italic;">Mượn sách ngay!</p>
+            </ng-container>
+        </div>
+    </div>
+
+    <ng-container *ngIf="listBook && listBook.length === 0">
+        <p style="font-size: 18px; font-weight: 500; color:red; width: 600px;">
+            Hiện tại bạn không có phiếu nào đang mượn
+        </p>
+    </ng-container>
+</div>
+
+<!-- Modal Gia Han -->
+<div class="modal fade" id="extendModal" tabindex="-1" aria-labelledby="extendModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="extendModalLabel"
+                    style="color: red; font-family: Arial, Helvetica, sans-serif;">Chọn ngày muốn gia hạn (Tối đa 14
+                    ngày)</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <input type="date" #borrowedDateInput id="returnDate" name="returnDate" [(ngModel)]="returnDate"
+                    min="{{min}}" max="{{max}}" [value]="max" class="caculs">
+            </div>
+            <div class="modal-footer" style="justify-content: center;">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal"
+                    style="width: 150px;margin-right: 20px;">Hủy</button>
+                <button (click)="confirmExtend()" type="button" class="btn btn-success" data-bs-dismiss="modal"
+                    style="width: 150px;">Xác
+                    nhận</button>
+            </div>
+        </div>
+    </div>
+</div>

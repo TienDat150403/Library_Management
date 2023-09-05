@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.a2m.back.dao.user.book.User0103DAO">
+
+
+	<select id="getListGenreBookForUserUid" parameterType='String'>
+		SELECT *
+		FROM LOAISACH
+		ORDER BY RAND()
+		LIMIT 4;
+
+	</select>
+
+
+
+</mapper>

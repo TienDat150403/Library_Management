@@ -1,0 +1,83 @@
+<div class="container" style="min-height: 786px;">
+  <div class="user_info shadow p-3 mb-1 bg-body rounded mb-4">
+    <div class="rounded" style="margin-right: auto; margin-left: auto; display: inline-block;">
+      <img [src]="previewImage" alt="" class="user_img" />
+    </div>
+    <div class="shadow-sm p-3 mb-1 bg-body rounded " style="width: 950px;">
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text">Họ và tên</span>
+        </div>
+        <input value="{{user.fullName}}" type="text" aria-label="name" class="form-control" name="fullName" readonly>
+      </div>
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text">Tên tài khoản</span>
+        </div>
+        <input value="{{user.userId}}" type="text" aria-label="username" class="form-control" name="username" readonly>
+      </div>
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text">Email</span>
+        </div>
+        <input value="{{user.email}}" type="email" aria-label="email" class="form-control" name="email" readonly>
+      </div>
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text">Số điện thoại</span>
+        </div>
+        <input value="{{user.cellPhone}}" type="text" aria-label="phone" class="form-control" name="cellPhone" readonly>
+      </div>
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text">Địa chỉ</span>
+        </div>
+        <input value="{{user.address}}" type="text" aria-label="address" class="form-control" name="address" readonly>
+      </div>
+      <a type="button" style="position: absolute;top: 26.5%;right: 7.3%;" class="wait_link" data-bs-toggle="modal"
+        data-bs-target="#disable">
+        <img src="https://cdn-icons-png.flaticon.com/128/4067/4067568.png" alt="Ban user"
+          style="width: 40px;height: 40px;">
+        <span class="tooltiptext">Xóa Tài Khoản</span>
+      </a>
+      <div style="justify-content: center; align-items: center; margin-top: 20px;">
+        <div class="text-center" style="padding-top: 10px;">
+          <a style="font-size: 25px;color: red;">Tổng số phiếu đã tạo: {{soPhieu}}</a>
+          <a type="button" [routerLink]="['phieu-muon']">
+            <img class="img-show" src="https://cdn-icons-png.flaticon.com/128/8847/8847483.png"
+              alt="Hiển thị phiếu mượn">
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <router-outlet></router-outlet>
+</div>
+<!-- Modal Xác Nhận Tất cả-->
+<div class="modal fade" id="disable" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div>
+          <img src="https://cdn-icons-png.flaticon.com/128/1041/1041891.png" alt=""
+            style="width: 35px; height: 35px;margin-right: 10px;">
+          <img src="https://cdn-icons-png.flaticon.com/128/1041/1041891.png" alt=""
+            style="width: 35px; height: 35px;margin-right: 10px;">
+          <img src="https://cdn-icons-png.flaticon.com/128/1041/1041891.png" alt=""
+            style="width: 35px; height: 35px;margin-right: 10px;">
+        </div>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Bạn chắc chắn muốn xóa tài khoản này chứ?
+      </div>
+      <div class="modal-footer" style="justify-content: center;">
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal"
+          style="width: 150px;margin-right: 20px;">Hủy</button>
+        <button (click)="disableUser()" type="button" class="btn btn-success" data-bs-dismiss="modal"
+          style="width: 150px;">Xác
+          nhận</button>
+      </div>
+    </div>
+  </div>
+</div>

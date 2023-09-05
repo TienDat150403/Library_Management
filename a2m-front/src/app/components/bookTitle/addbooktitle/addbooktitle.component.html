@@ -1,0 +1,112 @@
+<div class="container">
+  <div class="content p-3 mb-3 rounded">
+
+    <div class="d-flex" style="justify-content: center;padding-bottom: 30px;">
+
+      <div style="margin-right: auto; margin-left: auto;">
+        <div>
+          <img *ngIf="previewImage" [src]="previewImage" alt="Image Preview" class="img-book">
+        </div>
+        <br />
+        <br />
+        <!-- <div class="custom-file">
+          <input type="file" class="custom-file-input" (change)="onSelectFile($event)" accept="image/*">
+        </div> -->
+        <div class="input-group d-flex" style="justify-content: center;">
+          <div class="custom-file">
+            <input type="file" class="custom-file-input" (change)="onSelectFile($event)" accept="image/*"
+              id="inputGroupFile02">
+            <label class="custom-file-label" for="inputGroupFile02">Chọn ảnh bìa sách</label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Product details -->
+      <form #myForm="ngForm" (ngSubmit)="addBookTitle()">
+        <div class="col-12 shadow bg-body rounded">
+          <div class="product-details p-4">
+            <!-- <h2 class="product-name">{{bookTitle?.title}}</h2> -->
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon3">Tiêu đề</span>
+              </div>
+              <input type="text" class="form-control" id="title" name="title" [(ngModel)]="bookTitle.title"
+                aria-describedby="basic-addon3" required>
+              <div class="input-group title">
+                <span class="error-message title" *ngIf="error_title != ''">{{error_title}}</span>
+              </div>
+            </div>
+
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon3">Tác giả</span>
+              </div>
+              <input type="text" class="form-control" name="author" id="author" [(ngModel)]="bookTitle.author"
+                aria-describedby="basic-addon3" required>
+              <div class="input-group title">
+                <span class="error-message author" *ngIf="error_author != ''">{{error_author}}</span>
+              </div>
+            </div>
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon3">Nhà xuất bản</span>
+              </div>
+              <input type="text" class="form-control" name="publisher" id="publisher" [(ngModel)]="bookTitle.publisher"
+                aria-describedby="basic-addon3" required>
+              <div class="input-group title">
+                <span class="error-message publisher" *ngIf="error_publisher != ''">{{error_publisher}}</span>
+              </div>
+            </div>
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon3">Năm xuất bản</span>
+              </div>
+              <input type="number" class="form-control" name="createdYear" id="createdYear"
+                [(ngModel)]="bookTitle.createdYear" aria-describedby="basic-addon3">
+            </div>
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon3">Số trang</span>
+              </div>
+              <input type="number" class="form-control" name="pages" id="pages" [(ngModel)]="bookTitle.pages"
+                aria-describedby="basic-addon3">
+            </div>
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon3">Giá</span>
+              </div>
+              <input type="number" class="form-control" name="price" id="price" [(ngModel)]="bookTitle.price"
+                aria-describedby="basic-addon3">
+            </div>
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon3">Mô tả chi tiết</span>
+              </div>
+              <textarea type="text" class="form-control" name="description" id="description" rows="5"
+                [(ngModel)]="bookTitle.description" aria-describedby="basic-addon3"></textarea>
+              <div class="input-group description">
+                <span class="error-message description" *ngIf="error_description != ''">{{error_description}}</span>
+              </div>
+            </div>
+            <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 20px;">
+              <div style="padding-left: 20px;" *ngFor="let item of genreAll">
+                <input class="form-check-input" type="checkbox" name="genre" id="genre" value="item.genre_id"
+                  (click)="toggleChoice(item)">{{item.genre_name}}
+              </div>
+            </div>
+            <div class="d-flex add">
+              <div class="wrapper d-flex">
+                <button class="plusminus" (click)="handleMinus($event)">-</button>
+                <input type="number" id="quantity" name="quantity" class="num" [(ngModel)]="quantity" />
+                <button class="plusminus" (click)="handlePlus($event)">+</button>
+              </div>
+              <div class="action-book">
+                <button class="btn btn-primary" type="submit">Thêm sách</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

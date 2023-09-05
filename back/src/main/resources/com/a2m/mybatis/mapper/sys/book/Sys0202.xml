@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.a2m.back.dao.sys.book.Sys0202DAO">
+	<insert id="insert"
+		parameterType="com.a2m.back.model.sys.book.GenreBookDto"
+		useGeneratedKeys="true" keyProperty="genre_id">
+		INSERT INTO LOAISACH
+		(
+		genre_name,
+		date_add
+		)
+		VALUES
+		(
+		#{genre_name},
+		now()
+		)
+	</insert>
+
+	<update id="update"
+		parameterType="com.a2m.back.model.sys.book.GenreBookDto">
+		update LOAISACH
+		set genre_name = IF(#{genre_name} IS NOT
+		NULL, #{genre_name}, genre_name)
+		where genre_id = #{genre_id}
+	</update>
+
+	<select id="getListCateBook" parameterType='map'>
+		 select * from
+		LOAISACH 
+        WHERE genre_name like concat('%', #{name}, '%')
+        order by date_add desc
+        limit 10 offset #{ignore};
+
+	</select>
+
+	<select id="getListGenreForUser" parameterType='String'>
+		SELECT *
+		FROM LOAISACH
+		ORDER BY RAND()
+		LIMIT 4;
+
+	</select>
+
+	<select id="getCateBookByGenreId" parameterType="string">
+		select *
+		from
+		LOAISACH
+		where genre_id=#{genreId};
+	</select>
+
+	<select id="checkGenreBookExist" parameterType="string">
+		SELECT EXISTS
+		(SELECT 1
+		FROM LOAISACH WHERE genre_name = #{genre_name});
+	</select>
+
+	<select id="getGenreByBookCode" parameterType="String">
+		SELECT
+		T1.GENRE_ID
+		as genre_id,
+		T1.GENRE_NAME as genre_name
+		FROM
+		LOAISACH T1 LEFT JOIN LOAISACH_DAUSACH T2 ON T1.GENRE_ID = T2.GENRE_ID
+		WHERE T2.BOOK_CODE = #{bookCode}
+	</select>
+
+	<select id="getAllGenres">
+		SELECT * FROM LOAISACH;
+	</select>
+	
+	<select id='countTotalGenreBook' parameterType='map'>
+		select count(*) from LOAISACH WHERE genre_name like concat('%', #{name}, '%')
+	</select>
+</mapper>

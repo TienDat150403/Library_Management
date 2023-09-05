@@ -1,0 +1,90 @@
+<div class="container" style="min-height: 786px;">
+    <form id="phieumuonForm" class="center" (ngSubmit)="onSubmit()">
+        <h3 style="font-family: Arial, Helvetica, sans-serif;margin: 10px 0px;">TẠO PHIẾU MƯỢN</h3>
+        <div class="shadow p-3 bg-body rounded">
+            <table class="table  table-bordered">
+                <thead class="table-primary">
+                    <tr class="text-center">
+                        <th style="width: 15%">Bìa</th>
+                        <th style="width: 25%">Tên đầu sách</th>
+                        <th style="width: 20%">Tác giả</th>
+                        <th style="width: 20%">Nhà xuất bản</th>
+                        <th style="width: 20%">Thể loại</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <ng-container *ngFor="let item of bookList; index as i">
+                        <tr class="active-table">
+                            <td class="text-center">
+                                <img src={{imageList[i]}} alt="Book Image" class="img-item">
+                            </td>
+                            <td class="text-center" style="font-weight: 500">{{ item.title }}</td>
+                            <td class="text-center">{{ item.author }}</td>
+                            <td class="text-center">{{ item.publisher }}</td>
+                            <ng-container *ngIf="item.category === 0">
+                                <td class="content-item">
+                                    Sách thường</td>
+                            </ng-container>
+                            <ng-container *ngIf="item.category === 1">
+                                <td style="font-weight: 500;color: red; " class="content-item">Sách hiếm*
+                                </td>
+                            </ng-container>
+                        </tr>
+                    </ng-container>
+                    <!-- <td>{{ item.genre }}</td> -->
+                </tbody>
+            </table>
+            <hr>
+            <div class="d-flex justify-content-start align-items-center" style="margin-bottom: 10px;margin-top: 20px;">
+                <p style="font-size: 21px; font-weight: bold; color: red; margin: 0px;">Hẹn ngày lấy: </p>
+                <a type="button" style="margin-left: 20px; ">
+                    <input type="date" #borrowedDateInput id="borrowedDate" name="borrowedDate"
+                        [(ngModel)]="borrowedDate" min="{{min}}" max="{{max}}" [value]="formattedDate" class="cacul">
+                </a>
+            </div>
+            <div class="d-flex align-items-center" style="margin-bottom: 15px;">
+                <input type="checkbox" id="accept" name="accept" value="true" [(ngModel)]="agreed"
+                    style="width: 15px; height: 15px; color: blue;margin-right: 10px;">
+                <label style="margin: 0px;">Tôi đã đọc và chấp nhận điều khoản</label>
+                <button type="submit" class="btn btn-primary" style="width: 130px;margin-left: 800px;">Hoàn tất</button>
+            </div>
+        </div>
+    </form>
+    <div class="center">
+        <h3>Sách đã hết</h3>
+        <div class="shadow-sm p-3 mb-5 bg-body-tertiary rounded">
+            <table class="table  table-bordered">
+                <thead class="table-primary">
+                    <tr class="text-center">
+                        <th style="width: 15%">Bìa</th>
+                        <th style="width: 25%">Tên đầu sách</th>
+                        <th style="width: 20%">Tác giả</th>
+                        <th style="width: 20%">Số trang</th>
+                        <th style="width: 20%">Thể loại</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <ng-container *ngFor="let item of bookListUnavailable; index as i">
+                        <tr class="active-table">
+                            <td class="text-center">
+                                <img src={{imageListUn[i]}} alt="Book Image" style="width: 200px; height: 200px;">
+                            </td>
+                            <td class="text-center">{{ item.title }}</td>
+                            <td class="text-center">{{ item.author }}</td>
+                            <td class="text-center">{{ item.pages }}</td>
+                            <ng-container *ngIf="item.category === 0">
+                                <td class="content-item">
+                                    Sách thường</td>
+                            </ng-container>
+                            <ng-container *ngIf="item.category === 1">
+                                <td style="font-weight: 500;color: red; " class="content-item">Sách hiếm*
+                                </td>
+                            </ng-container>
+                        </tr>
+                    </ng-container>
+                    <!-- <td>{{ item.genre }}</td> -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

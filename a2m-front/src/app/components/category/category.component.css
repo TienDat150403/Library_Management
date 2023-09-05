@@ -1,0 +1,238 @@
+.container {
+    align-content: center;
+}
+
+.img-add {
+    width: 30px;
+    height: 30px;
+    margin-left: 10px;
+}
+
+.img-item {
+    border-radius: 200px;
+    width: 100px;
+    height: 100px;
+}
+
+.img-item:hover {
+    box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.item {
+    margin: 10px 40px 10px 40px;
+    text-align: center;
+    border-radius: 20px;
+}
+
+.title-cat {
+    margin: 10px 10px 0px 0px;
+    color: #000000;
+}
+
+.content {
+    max-height: 786px;
+    margin-top: 20px;
+}
+
+.status_checkbox {
+    margin-top: 20px;
+    margin-left: 100px;
+    margin-right: 100px;
+}
+
+.status_checkbox span {
+    margin-right: 5px;
+    margin-left: 20px;
+    ;
+}
+
+.btn {
+    width: 150px;
+    height: max-content;
+    margin-right: 20px;
+}
+
+.menu {
+    margin: 20px 0px;
+    align-content: center;
+}
+
+.form-check {
+    margin-top: 35px;
+    margin-left: 10px;
+}
+
+.content-con1 {
+    width: 400px;
+}
+
+.img-item {
+    width: 75px;
+    height: 75px;
+    margin-right: 20px;
+}
+
+.info {
+    margin: 0px;
+    margin-right: 10px;
+}
+
+.img-send {
+    height: 35px;
+    width: 35px;
+    margin: 0px 10px;
+}
+
+
+.item-table {
+    border-radius: 10px;
+}
+
+.content-item {
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    text-align: center;
+}
+/* CSS để hiển thị tooltip */
+.book_tooltip {
+    position: relative; /* Đảm bảo tooltip nằm trong phạm vi của nút */
+  }
+  
+  /* Ẩn tooltip ban đầu */
+  .book_tooltip .tooltiptext {
+    visibility: hidden;
+    width: 100px;
+    background-color: black;
+    color: white;
+    text-align: center;
+    padding: 5px;
+    border-radius: 5px;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%; /* Hiển thị phía trên nút */
+    left: 50%; /* Canh giữa */
+    transform: translateX(-50%); /* Dịch chuyển để căn giữa tooltip */
+    opacity: 0; /* Mặc định ẩn */
+    transition: opacity 0.3s, visibility 0.3s; /* Hiệu ứng hiển thị */
+  }
+  .header_wrap {
+    justify-content: space-between;
+    display: flex;
+  }
+  
+  /* Hiển thị tooltip khi di chuột qua nút */
+  .book_tooltip:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+  }
+  .book_add_tt {
+    position: relative;
+  }
+  .book_add_tt img {
+    /* margin-left: 60%; */
+    position: absolute;
+    right: 0;
+  }
+  .book_add_tt .tooltiptext {
+    visibility: hidden;
+    width: 50px;
+    background-color: black;
+    color: white;
+    text-align: center;
+    padding: 5px;
+    border-radius: 5px;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%; /* Hiển thị phía trên nút */
+    left: 50%; /* Canh giữa */
+    transform: translateX(-50%); /* Dịch chuyển để căn giữa tooltip */
+    opacity: 0; /* Mặc định ẩn */
+    transition: opacity 0.3s, visibility 0.3s; /* Hiệu ứng hiển thị */
+  }
+  
+  /* Hiển thị tooltip khi di chuột qua nút */
+  .book_add_tt:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+  }
+  .table_wrap {
+    display: flex;
+    gap: 10px;
+    margin: 20px 45px;
+    justify-content: space-around;
+  }
+  .table1 {
+    width: 40%;
+  }
+  .table2 {
+    width: 40%;
+  }
+  .btn {
+    width: 140px;
+    height: max-content;
+    margin-right: 20px;
+}
+
+
+.menu {
+    margin: 20px 0px;
+    align-content: center;
+}
+
+.form-check {
+    margin-top: 35px;
+    margin-left: 10px;
+}
+
+.content-con1 {
+    width: 400px;
+}
+
+.img-item {
+    width: 75px;
+    height: 75px;
+    margin-right: 20px;
+}
+
+.info {
+    margin: 0px;
+    margin-right: 10px;
+}
+
+.img-info {
+    height: 40px;
+    width: 40px;
+    margin: 0px 10px;
+}
+
+
+.item-table {
+    border-radius: 10px;
+}
+
+.content-item {
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    text-align: center;
+}
+
+.confirm-all {
+    width: 140px;
+    margin: 6px 0;
+    position: absolute;
+    top: 150px;
+    left: 630px;
+    z-index: 1;
+}
+
+.search {
+    width: 200px;
+    margin: 8px 0;
+    position: absolute;
+    top: 150px;
+    right: 260px;
+    z-index: 1;
+    display: flex
+}

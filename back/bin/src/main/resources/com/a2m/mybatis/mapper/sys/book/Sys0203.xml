@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.a2m.back.dao.sys.book.Sys0203DAO">
+
+	<resultMap id="bookListResultMap" type="java.util.ArrayList">
+	  <result property="bookCode" column="BOOKCODE" />
+	  <result property="title" column="TITLE" />
+	  <result property="publisher" column="PUBLISHER" />
+	  <result property="price" column="PRICE" />
+	  <result property="pages" column="PAGES" />
+	  <result property="description" column="DESCRIPTION" />
+	  <result property="status" column="STATUS" />
+	  <result property="author" column="AUTHOR" />
+	  <result property="createdYear" column="CREATED_YEAR" />
+	  <result property="category" column="CATEGORY" />
+	</resultMap>
+
+	<select id="getBooks" resultType="com.a2m.back.model.sys.book.Book">
+		SELECT
+		BOOK_ID as bookId,
+		BOOK_CODE as bookCode,
+		STATUS as status
+		FROM SACH
+	</select>
+	
+	<select id="getBookExist" parameterType="String" resultType="String">
+		SELECT BOOK_ID FROM SACH WHERE BOOK_CODE = #{bookCode} LIMIT 1 
+	</select>
+	
+	<select id="getBookNumber" parameterType="String" resultType="int">
+		SELECT COUNT(*) FROM SACH WHERE BOOK_CODE = #{bookCode}
+	</select>
+	
+	<insert id="addBook" parameterType="String">
+		INSERT INTO SACH (BOOK_ID, BOOK_CODE, STATUS) VALUES (#{bookId}, #{bookCode}, 1)
+	</insert>
+	
+	<select id="getBooksByBookCode" parameterType="String" resultType="com.a2m.back.model.sys.book.Book">
+		SELECT 
+		BOOK_ID as bookId,
+		BOOK_CODE as bookCode,
+		STATUS as status
+		FROM SACH WHERE BOOK_CODE = #{bookCode}
+	</select>
+	
+	<update id="changeBookStatus" parameterType="com.a2m.back.model.sys.book.Book">
+		UPDATE SACH
+		SET STATUS=${status}
+		WHERE BOOK_ID=#{bookId}
+	</update>
+	
+	<update id="changeBookStatusByBookCode" parameterType="com.a2m.back.model.sys.book.Book">
+		UPDATE SACH
+		SET STATUS=${status}
+		WHERE BOOK_CODE=#{bookCode}
+	</update>
+	
+	<select id="getBookAvailableNumber" parameterType="String" resultType="int">
+		SELECT COUNT(*) FROM SACH 
+		WHERE BOOK_CODE = #{bookCode} 
+		AND STATUS = 1
+		AND BOOK_ID NOT IN 
+		(SELECT BOOK_ID FROM SACHMUON 
+		WHERE SUBSTRING(BOOK_ID, 1, 4) = #{bookCode} 
+		AND STATUS = 0) 
+	</select>
+</mapper>

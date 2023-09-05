@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.a2m.back.dao.user.book.User0102DAO">
+	<!-- <resultMap id="waitListResponseMap" type="com.a2m.back.model.resp.WaitListResponse"> 
+		<id property="userUid" column="user_uid" /> <collection property="listBook" 
+		ofType="com.a2m.back.model.resp.BookResponse"> <id property="bookCode" column="book_code" 
+		/> <result property="title" column="title" /> <result property="publisher" 
+		column="publisher" /> <result property="price" column="price" /> <result 
+		property="pages" column="pages" /> <result property="description" column="description" 
+		/> <result property="status" column="status" /> <result property="author" 
+		column="author" /> <result property="createdYear" column="created_year" /> 
+		<result property="category" column="category" /> <result property="img" column="img" 
+		/> <result property="quantity" column="quantity" /> </collection> </resultMap> -->
+
+	<resultMap id="bookResponseMap"
+		type="com.a2m.back.model.resp.BookResponse">
+		<id property="bookCode" column="bookCode" />
+		<result property="title" column="title" />
+		<result property="publisher" column="publisher" />
+		<result property="price" column="price" />
+		<result property="pages" column="pages" />
+		<result property="description" column="description" />
+		<result property="status" column="status" />
+		<result property="author" column="author" />
+		<result property="createdYear" column="createdYear" />
+		<result property="category" column="category" />
+		<result property="quantity" column="quantity" />
+	</resultMap>
+
+	<insert id="addBookToWishList"
+		parameterType="com.a2m.back.model.user.book.WishListDto">
+		INSERT INTO WISHLIST
+		(
+		USER_UID,
+		BOOK_CODE,
+		DATE_ADD
+		)
+		VALUES
+		(
+		#{userUid},
+		#{bookCode},
+		#{date_add}
+		)
+	</insert>
+
+	<delete id="deleteFromWishList"
+		parameterType="com.a2m.back.model.user.book.WishListDto">
+		delete from WISHLIST
+		where USER_UID = #{userUid}
+		and
+		BOOK_CODE = #{bookCode};
+	</delete>
+
+	<select id="getUserUidByBookID" parameterType="String">
+		SELECT USER_UID
+		FROM WISHLIST
+		WHERE BOOK_CODE = #{bookCode};
+	</select>
+
+	<select id="getBookCodeOfUserUid" parameterType="String">
+		<!-- resultMap="bookResponseMap" -->
+		SELECT
+		DS.BOOK_CODE as bookCode,
+		DS.TITLE as title,
+		DS.PUBLISHER as publisher,
+		DS.PRICE as price,
+		DS.PAGES as pages,
+		DS.DESCRIPTION as description,
+		DS.STATUS as status,
+		DS.AUTHOR as author,
+		DS.CREATED_YEAR as createdYear,
+		DS.CATEGORY as category,
+		DS.IMG as img,
+		COUNT(S.book_code) AS quantity
+		FROM WISHLIST AS WL
+		JOIN
+		DAUSACH AS DS ON WL.book_code = DS.book_code
+		LEFT JOIN SACH AS S ON
+		DS.book_code = S.book_code
+		WHERE WL.user_uid = #{userUid}
+		GROUP BY
+		DS.book_code;
+	</select>
+
+	<select id="checkBookInWishListByUserUid"
+		parameterType="com.a2m.back.model.user.book.WishListDto">
+		SELECT EXISTS
+		(SELECT 1 FROM WISHLIST
+		WHERE USER_UID =
+		#{userUid}
+		and
+		BOOK_CODE = #{bookCode});
+	</select>
+
+	<select id='getUserUidByBookCode' parameterType='String'>
+		select USER_UID
+		from WISHLIST
+		where BOOK_CODE = #{bookCode}
+	</select>
+</mapper>

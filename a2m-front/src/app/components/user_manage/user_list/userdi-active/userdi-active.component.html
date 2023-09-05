@@ -1,0 +1,61 @@
+<div class="container" style="min-height: 786px;">
+    <!-- <div class="search">
+  <form>
+    <input style="width: 300px;" class="form-control me-2" type="search" placeholder="Nhập tên tài khoản"
+      name="searchByUsername" [(ngModel)]="username">
+  </form>
+  <button (click)="getDataByUsername()" type="button" style="border: #ffffff;background-color: #ffffff;">
+    <img src="https://cdn-icons-png.flaticon.com/128/10975/10975953.png" alt="" style="width: 38px;height: 38px;">
+  </button>
+</div> -->
+    <div>
+        <div style="display: flex; background-color: antiquewhite" class="shadow-sm p-2 mb-3 bg-body rounded">
+            <p scope="col" style="width: 20%; text-align: center;font-weight: bold" class="content-item">Họ và tên
+            </p>
+            <p scope="col" style="width: 20%;text-align: center;font-weight: bold" class="content-item">Ngày sinh
+            </p>
+            <p scope="col" style="width: 20%; text-align: center;font-weight: bold" class="content-item">Địa chỉ
+            </p>
+            <p scope="col" style="width: 20%;text-align: center;font-weight: bold" class="content-item">Email
+            </p>
+            <p scope="col" style="width: 20%;text-align: center;font-weight: bold" class="content-item">Số điện thoại
+            </p>
+        </div>
+        <div [routerLink]="['/sys/user-detail', c.userUid]" class="content shadow p-3 mb-3 bg-body rounded wait_link"
+            type="button" *ngFor="let c of users;">
+            <span class="tooltiptext">Chi tiết</span>
+            <div class="item-table d-flex">
+                <td class="content-item" id="detail" style="width: 20%">{{
+                    c.fullName }}</td>
+                <td class="content-item" style="width: 20%;">{{ c.dob | date:'dd/MM/yyyy' }}</td>
+                <td class="content-item" style="width: 20%;">{{ c.address }}</td>
+                <td class="content-item" style="width: 20%">{{ c.email }}</td>
+                <td class="content-item" style="width: 20%">{{ c.cellPhone }}</td>
+            </div>
+        </div>
+        <ng-container *ngIf="users.length === 0">
+            <p style="font-size: 18px; font-weight: 500; color:red; width: 600px;">
+                Danh sách user trống!
+            </p>
+        </ng-container>
+    </div>
+</div>
+
+<nav aria-label="Page navigation" style="margin-bottom:30px;margin-top: 20px;">
+    <ul class="pagination" style="justify-content: center;">
+        <li class="page-item">
+            <a (click)="appendQueryParam(-1)" class="page-link" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+            </a>
+        </li>
+        <li *ngFor="let i of numbersArray" class="page-item">
+            <a class="page-link" (click)="currentPage(+i)" [class.active]="pageCurrent === i">{{i}}</a>
+        </li>
+        <li class="page-item">
+            <button (click)="appendQueryParam(1)" class="page-link" aria-label="Next"
+                [disabled]="pageCurrent === numbersArray.length">
+                <span aria-hidden="true">&raquo;</span>
+            </button>
+        </li>
+    </ul>
+</nav>

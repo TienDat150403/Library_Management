@@ -1,0 +1,127 @@
+.btn {
+  width: 150px;
+  height: max-content;
+  margin-right: 20px;
+}
+
+.menu {
+  margin: 20px 0px;
+  align-content: center;
+}
+
+.form-check {
+  margin-top: 35px;
+  margin-left: 10px;
+}
+
+.content-con1 {
+  width: 400px;
+}
+
+.img-item {
+  width: 100px;
+  height: 90px;
+  margin-right: 20px;
+}
+
+.info {
+  margin: 0px;
+  margin-right: 10px;
+  font-weight: 600;
+}
+
+.img-send {
+  height: 35px;
+  width: 35px;
+  margin: 0px 10px;
+}
+
+
+.item-table {
+  border-radius: 10px;
+}
+
+.content-item {
+  justify-content: center;
+  display: flex;
+  align-items: center;
+  text-align: center;
+}
+
+/* CSS để hiển thị tooltip */
+.book_tooltip {
+  position: relative;
+  /* Đảm bảo tooltip nằm trong phạm vi của nút */
+}
+
+/* Ẩn tooltip ban đầu */
+.book_tooltip .tooltiptext {
+  visibility: hidden;
+  width: 160px;
+  background-color: rgb(135, 135, 135);
+  color: white;
+  text-align: center;
+  padding: 5px;
+  border-radius: 5px;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  /* Hiển thị phía trên nút */
+  left: 50%;
+  /* Canh giữa */
+  transform: translateX(-50%);
+  /* Dịch chuyển để căn giữa tooltip */
+  opacity: 0;
+  /* Mặc định ẩn */
+  transition: opacity 0.3s, visibility 0.3s;
+  /* Hiệu ứng hiển thị */
+}
+
+.header_wrap {
+  justify-content: space-between;
+  display: flex;
+}
+
+/* Hiển thị tooltip khi di chuột qua nút */
+.book_tooltip:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1;
+}
+
+.book_add_tt {
+  position: relative;
+}
+
+.book_add_tt img {
+  /* margin-left: 60%; */
+  position: absolute;
+  right: 0;
+}
+
+.book_add_tt .tooltiptext {
+  visibility: hidden;
+  width: 100px;
+  background-color: rgb(135, 135, 135);
+  color: white;
+  text-align: center;
+  padding: 5px;
+  border-radius: 5px;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  /* Hiển thị phía trên nút */
+  left: 50%;
+  /* Canh giữa */
+  transform: translateX(-50%);
+  /* Dịch chuyển để căn giữa tooltip */
+  opacity: 0;
+  /* Mặc định ẩn */
+  transition: opacity 0.3s, visibility 0.3s;
+  /* Hiệu ứng hiển thị */
+}
+
+/* Hiển thị tooltip khi di chuột qua nút */
+.book_add_tt:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1;
+}

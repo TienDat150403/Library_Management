@@ -1,0 +1,159 @@
+<!-- Hiển thị danh sách phiếu mượn với status là " đang chờ xác nhận " -->
+<div class="select_option" style="margin-top: 22px;">
+    <select class="custom-select custom-select-sm" [(ngModel)]='selectedStatus'
+        (ngModelChange)="onChangeSelectedStatus()" name="selectStatus" style="margin-left: 30px;">
+        <option value="0">Tất cả</option>
+        <option value="1">Còn hạn</option>
+        <option value="2">Hết hạn</option>
+    </select>
+</div>
+<div class="search">
+    <form>
+        <input style="width: 300px;" class="form-control me-2" type="search" placeholder="Nhập tên tài khoản"
+            [(ngModel)]="username" name="searchByUsername">
+    </form>
+    <button type="button" (click)="getDataByUsername()" style="border: #ffffff;background-color: #ffffff;">
+        <img src="https://cdn-icons-png.flaticon.com/128/10975/10975953.png" alt="" style="width: 38px;height: 38px;">
+    </button>
+</div>
+<div style="min-height: 786px;">
+    <div style="display: flex; background-color: antiquewhite" class="shadow-sm p-3 mb-3 bg-body rounded">
+
+        <div class="form-check" style="width: 35%; margin: 0px;">
+            <input *ngIf="list.length > 0" class="form-check-input" type="checkbox" [(ngModel)]="selectAllChecked"
+                (change)="toggleSelectAll(selectedItem)" style="border: 1px solid #0000ff">
+            <label class="form-check-label" for="flexCheckDefault" style="font-size: large;font-weight: bold;">
+                Xác nhận tất cả
+            </label>
+        </div>
+        <p scope="col" style="width: 21%; text-align: center;font-weight: bold" class="content-item">Số lượng sách
+        </p>
+        <p (click)="sortByCreatedDate()" scope="col" style="width: 22%;text-align: center;font-weight: bold"
+            class="content-item">Ngày hẹn lấy
+            &nbsp;<i class="fa fa-sort"></i>
+        </p>
+        <p scope="col" style="width: 22%;text-align: center;font-weight: bold" class="content-item">Thao tác</p>
+        <button (click)="openModalConfirmAll()" class="btn btn-danger confirm-all"
+            *ngIf="isAnyCheckboxChecked || selectedItem">Xác nhận</button>
+    </div>
+    <div class="content shadow p-3 mb-3 bg-body rounded" *ngFor="let item of list">
+        <div class="item-table d-flex ">
+            <div style="display: flex;width: 35%;">
+                <div class="form-check">
+                    <input (click)="chekcedItem(selectedItem)" class="form-check-input" type="checkbox" value=""
+                        id="checkPhieuMuon" [(ngModel)]="item.checked" style="border: 1px solid #0000ff;">
+                </div>
+                <div class="content-con1 d-flex p-2 bd-highlight">
+                    <a type="button" class="wait_link">
+                        <img src="https://cdn-icons-png.flaticon.com/128/3058/3058953.png" alt="" class="img-item ">
+                    </a>
+                    <div style=" width:300px;margin-top: 15px;">
+                        <div class="d-flex">
+                            <p class="info">Họ tên: {{item.userInfo?.fullName}}</p>
+                        </div>
+                        <p class="info">Email: {{item.userInfo?.email}}</p>
+                    </div>
+                </div>
+            </div>
+            <td class="content-item" style="width: 21%">{{item.countBook}}</td>
+            <td class="content-item" style="width: 22%; font-style: italic">{{
+                item.borrowDate | date: 'dd/MM/yyyy' }}</td>
+            <div class="content-item" style=" width: 22%;">
+                <a [routerLink]="['/sys/list-phieumuon/chi-tiet-phieu-muon/',item.idPhieuMuon]"
+                    [queryParams]="{ status: item.status }" class="wait_link">
+                    <img src="https://cdn-icons-png.flaticon.com/128/9195/9195785.png" alt="" class="img-info">
+                    <span class="tooltiptext">Chi tiết phiếu</span>
+                </a>
+                <!-- <a type="button" data-bs-toggle="modal" data-bs-target="#itemModal" (click)="phieuMuonSelected(item)"
+                    style="background-color: #ffffff;border: #ffffff;" class="wait_link">
+                    <img src="https://cdn-icons-png.flaticon.com/128/1322/1322149.png" alt=""
+                        style="width: 35px;height: 35px;">
+                    <span class="tooltiptext">Hủy phiếu</span>
+                </a> -->
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Modal Xác Nhận Hủy -->
+    <div class="modal fade" id="itemModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div>
+                        <img src="https://cdn-icons-png.flaticon.com/128/1041/1041891.png" alt=""
+                            style="width: 35px; height: 35px;margin-right: 10px;">
+                        <img src="https://cdn-icons-png.flaticon.com/128/1041/1041891.png" alt=""
+                            style="width: 35px; height: 35px;margin-right: 10px;">
+                        <img src="https://cdn-icons-png.flaticon.com/128/1041/1041891.png" alt=""
+                            style="width: 35px; height: 35px;margin-right: 10px;">
+                    </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Bạn chắc chắn muốn hủy phiếu này chứ?
+                </div>
+                <div class="modal-footer" style="justify-content: center;">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal"
+                        style="width: 150px;margin-right: 20px;">Hủy</button>
+                    <button type="button" (click)="cancelPhieuMuon()" class="btn btn-success" data-bs-dismiss="modal"
+                        style="width: 150px;">Xác
+                        nhận</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Xác Nhận Tất cả-->
+    <div class="modal fade" id="modalConfirmAll" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div>
+                        <img src="https://cdn-icons-png.flaticon.com/128/1041/1041891.png" alt=""
+                            style="width: 35px; height: 35px;margin-right: 10px;">
+                        <img src="https://cdn-icons-png.flaticon.com/128/1041/1041891.png" alt=""
+                            style="width: 35px; height: 35px;margin-right: 10px;">
+                        <img src="https://cdn-icons-png.flaticon.com/128/1041/1041891.png" alt=""
+                            style="width: 35px; height: 35px;margin-right: 10px;">
+                    </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Bạn chắc chắn muốn xác nhận phiếu này chứ?
+                </div>
+                <div class="modal-footer" style="justify-content: center;">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal"
+                        style="width: 150px;margin-right: 20px;">Hủy</button>
+                    <button (click)="confirmAll()" type="button" class="btn btn-success" data-bs-dismiss="modal"
+                        style="width: 150px;">Xác
+                        nhận</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <ng-container *ngIf="list.length === 0">
+        <p style="font-size: 18px; font-weight: 500; color:red; width: 600px;">
+            Danh sách phiếu trống!
+        </p>
+    </ng-container>
+</div>
+<nav aria-label="Page navigation" style="margin-bottom:30px;margin-top: 20px;">
+    <ul class="pagination" style="justify-content: center;">
+        <li class="page-item">
+            <a (click)="appendQueryParam(-1)" class="page-link" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+            </a>
+        </li>
+        <li *ngFor="let i of numbersArray" class="page-item">
+            <a class="page-link" (click)="currentPage(+i)" [class.active]="pageCurrent === i">{{i}}</a>
+        </li>
+        <li class="page-item">
+            <button (click)="appendQueryParam(1)" class="page-link" aria-label="Next"
+                [disabled]="pageCurrent === numbersArray.length">
+                <span aria-hidden="true">&raquo;</span>
+            </button>
+        </li>
+    </ul>
+</nav>

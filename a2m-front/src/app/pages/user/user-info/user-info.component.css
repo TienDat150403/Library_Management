@@ -1,0 +1,48 @@
+.user_info {
+    display: flex;
+    gap: 30px;
+    margin: auto;
+    width: 90%;
+    padding-bottom: 40px;
+}
+
+.user_img {
+    width: 100%;
+    max-width: 400px;
+    max-height: 400px;
+    border-radius: 10px;
+}
+
+.user_form {
+    width: 70%;
+}
+
+.input-group-text {
+    width: 150px;
+}
+
+.input-group {
+    margin: 10px 0;
+}
+
+.user_title {
+    text-align: center;
+    padding-top: 20px;
+}
+
+.gender_checkbox {
+    margin-left: 150px;
+}
+
+.gender_checkbox input {
+    margin: 0 20px;
+}
+
+.button_input {
+    text-align: right;
+    margin-top: 20px;
+}
+
+.error-message {
+    color: red;
+}

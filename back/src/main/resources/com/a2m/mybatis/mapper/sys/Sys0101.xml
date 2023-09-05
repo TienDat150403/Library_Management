@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.a2m.back.dao.sys.Sys0101DAO">
+	<insert id="insert"
+		parameterType="com.a2m.back.model.sys.EmpDto" useGeneratedKeys="true"
+		keyProperty="id">
+		INSERT INTO BASE_EMP
+		(
+		FULL_NAME,
+		GENDER,
+		DOB,
+		ADDRESS,
+		CREATED_BY,
+		CREATED_DATE
+		)
+		VALUES
+		(
+		#{fullName},
+		#{gender},
+		#{dob},
+		#{address},
+		#{createdBy},
+		#{createdDate}
+		)
+	</insert>
+
+	<!-- <update id="" parameterType=""> -->
+	<!-- UPDATE BASE_EMP -->
+	<!-- <set> -->
+	<!-- FULL_NAME = #{fullName}, -->
+	<!-- UPDATED_DATE = #{updatedDate} -->
+	<!-- </set> -->
+	<!-- WHERE ID = #{id} -->
+	<!-- </update> -->
+
+	<!-- <delete id="" parameterType="Long"> -->
+	<!-- DELETE FROM BASE_EMP -->
+	<!-- WHERE ID = #{id} -->
+	<!-- </delete> -->
+
+	<!-- <select id="getEmpById" parameterType="" resultType=""> -->
+	<!-- SELECT -->
+	<!-- E.ID as id -->
+	<!-- FROM BASE_EMP E -->
+	<!-- WHERE ID = #{id} -->
+	<!-- </select> -->
+
+	<!-- <select id="getListEmp" resultMap="empRm"> -->
+	<!-- SELECT -->
+	<!-- E.ID -->
+	<!-- FROM BASE_EMP E -->
+	<!-- ORDER BY E.CREATED_DATE DESC -->
+	<!-- </select> -->
+
+	<!-- <resultMap id="empRm" type=""> -->
+	<!-- <id property="id" column="ID"></id> -->
+	<!-- <result property="" column=""></result> -->
+	<!-- </resultMap> -->
+
+	<!-- <select id='getListUserInfo' resultType="com.a2m.back.model.resp.DataResponse">
+	
+	</select> -->
+</mapper>

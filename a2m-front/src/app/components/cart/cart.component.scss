@@ -1,0 +1,212 @@
+.increase_quantity,
+.decrease_quantity {
+  cursor: pointer;
+}
+
+.checkbox_cart {
+  width: 18px;
+  height: 18px;
+}
+
+.confirm-all {
+  width: 140px;
+  margin: 6px 0;
+  position: absolute;
+  top: 15px;
+  right: 10px;
+  z-index: 1;
+}
+
+
+.cart_img:hover {
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
+}
+
+
+.info-author {
+  margin: 0px;
+  padding: 0px;
+}
+
+.info-author:hover {
+  color: blue;
+  font-weight: 500;
+}
+
+.cart_img {
+  width: 85px;
+  height: 85px;
+  border-radius: 10px;
+  margin-right: 20px;
+}
+
+.title {
+  margin: 0px;
+  width: 270px;
+}
+
+.collum {
+  width: 15%;
+  padding-top: 35px;
+}
+
+form {
+  width: 300px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.product_title_author p {
+  margin: 0px 0px 5px 0px;
+}
+
+.value-button {
+  display: inline-block;
+  // border: 1px solid #ddd;
+  margin: 0px;
+  width: 40px;
+  height: 40px;
+  vertical-align: middle;
+  padding: 10px 0 12px;
+  text-align: center;
+  background: #eee;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.value-button:hover {
+  cursor: pointer;
+}
+
+form #decrease {
+  margin-right: -4px;
+  border-radius: 8px 0 0 8px;
+  background: red;
+  color: white;
+}
+
+form #increase {
+  margin-left: -4px;
+  border-radius: 0 8px 8px 0;
+  background: green;
+  color: white;
+}
+
+/* form #input-wrap {
+  margin: 0px;
+  padding: 0px;
+} */
+
+input#number {
+  text-align: center;
+  border: none;
+  // border-top: 1px solid #ddd;
+  // border-bottom: 1px solid #ddd;
+  margin: 0px;
+  width: 40px;
+  height: 40px;
+}
+
+.checkbox_input {
+  margin-left: 45%;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+tbody {
+  tr {
+    &:not(:last-of-type) {
+      td {
+        border-right: 1px solid #dee2e6;
+
+        &:first-of-type {
+          border-left: 1px solid #dee2e6;
+        }
+      }
+    }
+  }
+}
+
+
+
+.product_cart {
+  display: flex;
+  align-items: center;
+}
+
+.cart_container {
+  width: 100%;
+}
+
+td {
+  text-align: center;
+  border: 1px solid #c6c6c6;
+}
+
+td:first-child {
+  text-align: left;
+  margin-left: 30px;
+}
+
+.delete_icon {
+  font-size: 24px;
+  color: red;
+}
+
+.check_icon {
+  font-size: 24px;
+  color: blue;
+}
+
+.product_not_active {
+  color: #7a7575;
+}
+
+.product_not_active td {
+  color: #7a7575;
+}
+
+.product_not_active i {
+  color: #7a7575;
+}
+
+.product_not_active .delete_icon {
+  font-size: 24px;
+  color: red;
+}
+
+.checkbox_cart {
+  margin-right: 30px;
+  margin-left: 20px;
+}
+
+.icon_disable {
+  margin-right: 50px;
+  margin-left: 20px;
+}
+
+// Gio hang trong
+.cart_empty-img {
+  display: block;
+  margin: auto;
+  width: 40%;
+}
+
+.cart_empty-msg {
+  text-align: center;
+  font-weight: 500;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.cart_empty-msg a {
+  color: #3598fe;
+}

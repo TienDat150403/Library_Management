@@ -1,0 +1,84 @@
+.content {
+    padding-top: 20px;
+}
+
+.info-user {
+    justify-content: left;
+    align-items: center;
+    padding: 20px;
+}
+
+.info {
+    margin-left: 20px;
+}
+
+.info-user p {
+    margin: 5px 0px;
+}
+
+.info-author {
+    margin-left: 20px;
+}
+
+.info-author:hover {
+    color: blue;
+    font-weight: 500;
+}
+
+
+.img-user {
+    width: 150px;
+    height: 150px;
+    border-radius: 20px;
+}
+
+.btn {
+    width: 200px;
+    height: max-content;
+}
+
+.menu {
+    margin: 20px 0px;
+    align-content: center;
+}
+
+
+.content-con1 {
+    width: 400px;
+}
+
+.center-left {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-direction: column;
+    padding-left: 10px;
+}
+
+.img-item {
+    width: 120px;
+    height: 120px;
+    border-radius: 10px;
+}
+
+.img-item:hover {
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+}
+
+.item-table {
+    border-radius: 10px;
+}
+
+.form-check-input {
+    padding: 0px;
+    display: flex;
+}
+
+
+.content-item {
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    text-align: center;
+}

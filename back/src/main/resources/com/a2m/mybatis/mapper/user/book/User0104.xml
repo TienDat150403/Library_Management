@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.a2m.back.dao.user.book.User0104DAO">
+	<insert id="addNotification"
+		parameterType="com.a2m.back.model.user.book.NotificationDto">
+		INSERT INTO THONGBAO
+		(USER_UID,
+		CONTENT,
+		DATE_ADD,
+		ISREAD,
+		ABOUT,
+		ID
+		)
+		VALUES
+		(#{userUid},
+		#{content},
+		#{date_add},
+		#{read},
+		#{about},
+		#{id}
+		)
+	</insert>
+
+
+	<select id="getNotificationByUserUid" parameterType="map">
+		select
+		NOTIFICATION_ID as notification_id,
+		USER_UID as userUid,
+		CONTENT as
+		content,
+		DATE_ADD as date_add,
+		ABOUT as about,
+		ISREAD as isRead,
+		ID as id
+		from THONGBAO
+		where USER_UID = #{userUid} AND DATE_ADD >= DATE_SUB(CURDATE(), INTERVAL 30
+		DAY)
+		ORDER BY DATE_ADD DESC
+		LIMIT 5 offset #{ignore};
+	</select>
+
+
+	<select id='countNoti' parameterType='String'>
+		SELECT count(*)
+		FROM THONGBAO
+		WHERE USER_UID = #{userUid} AND DATE_ADD >= DATE_SUB(CURDATE(), INTERVAL 30
+		DAY);
+	</select>
+	
+	<select id='countNotiUnread' parameterType='String'>
+		SELECT count(*)
+		FROM THONGBAO
+		WHERE USER_UID = #{userUid} AND DATE_ADD >= DATE_SUB(CURDATE(), INTERVAL 30 DAY)
+		AND ISREAD = 0
+		;
+	</select>
+	<!-- updateStatusIsReadTrue -->
+	<update id="updateStatusIsReadTrue" parameterType="String">
+		update THONGBAO
+		SET ISREAD = 1
+		WHERE NOTIFICATION_ID = #{notification_id}
+	</update>
+	<!-- <select id="checkBookExistInCart" parameterType="com.a2m.back.model.user.book.CartDto"> 
+		SELECT EXISTS (SELECT 1 FROM GIOHANG WHERE USER_UID = #{userUid} and BOOK_CODE 
+		= #{bookCode}); </select> -->
+</mapper>

@@ -1,0 +1,18 @@
+.orange-background {
+  background-color: rgb(127, 185, 127);
+}
+
+.row {
+  background-color: white;
+  transition: background-color 0.3s ease;
+}
+
+.row.hovered {
+  background-color: #f8f8f8;
+}
+
+.img-fluid {
+  width: 100px;
+  height: 90px;
+
+}

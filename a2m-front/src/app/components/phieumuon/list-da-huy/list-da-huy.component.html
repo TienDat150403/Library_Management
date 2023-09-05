@@ -1,0 +1,83 @@
+<!-- Hiển thị danh sách phiếu mượn với status là " Đang cho mượn "  -->
+<div>
+    <form class="d-flex search">
+        <input class="form-control me-2" type="search" placeholder="Nhập tên tài khoản" aria-label="Search"
+            style="width: 550px;margin-bottom: 20px;" [(ngModel)]="username" name="searchByUsername">
+        <img (click)="getDataByUsername()" src="https://cdn-icons-png.flaticon.com/128/10975/10975953.png" alt=""
+            style="width: 38px;height: 38px;">
+    </form>
+</div>
+<div>
+    <form class="d-flex search">
+        <input class="form-control me-2" type="search" placeholder="Nhập tên tài khoản" aria-label="Search"
+            style="width: 550px;margin-bottom: 20px;">
+        <img src="https://cdn-icons-png.flaticon.com/128/10975/10975953.png" alt="" style="width: 38px;height: 38px;">
+    </form>
+</div>
+<div style="min-height: 786px;">
+    <div style="display: flex; background-color: antiquewhite" class="shadow-sm p-3 mb-3 bg-body rounded">
+        <div class="form-check" style="width: 25%; margin: 0px;">
+            <label class="form-check-label" for="flexCheckDefault" style="font-size: large;font-weight: bold;">
+                Thông tin
+            </label>
+        </div>
+        <p scope="col" style="width: 15%; text-align: center;font-weight: bold" class="content-item">Số lượng sách
+        </p>
+        <p (click)="sortByCreatedDate()" scope="col" style="width: 20%;text-align: center;font-weight: bold"
+            class="content-item">Ngày tạo
+            &nbsp;<i class="fa fa-sort"></i>
+        </p>
+        <p scope="col" style="width: 20%;text-align: center;font-weight: bold" class="content-item">Ngày hủy
+        </p>
+        <p scope="col" style="width: 20%;text-align: center;font-weight: bold" class="content-item">Thao tác</p>
+    </div>
+    <div class="content shadow p-3 mb-3 bg-body rounded" *ngFor="let item of list">
+        <div class="item-table d-flex">
+            <div style="display: flex;width: 25%;">
+                <div class="content-con1 d-flex p-2 bd-highlight">
+                    <img src="https://cdn-icons-png.flaticon.com/128/3058/3058953.png" alt="" class="img-item">
+                    <div style="margin-top: 15px;">
+                        <div class="d-flex">
+                            <p class="info">{{item.userInfo?.fullName}}</p>
+
+                        </div>
+                        <p class="info">{{item.userInfo?.email}}</p>
+                    </div>
+                </div>
+            </div>
+            <td class="content-item" style="width: 15%">{{item.countBook}}</td>
+            <td class="content-item" style="width: 20%">{{ item.createdDate | date:'hh:mm - dd/MM/yyyy' }}</td>
+            <td class="content-item" style="width: 20%;">{{ item.cancelDate | date:'hh:mm - dd/MM/yyyy' }}
+            </td>
+            <div class="content-item" style=" width: 20%;">
+                <div style="text-align: center;">
+                    <img [routerLink]="['/sys/list-phieumuon/chi-tiet-phieu-muon/',item.idPhieuMuon]"
+                        [queryParams]="{ status: item.status }"
+                        src="https://cdn-icons-png.flaticon.com/128/9195/9195785.png" alt="" class="img-info">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <ng-container *ngIf="list.length === 0">
+        <p style="font-size: 18px; font-weight: 500; color:red; width: 600px;">
+            Danh sách phiếu trống!
+        </p>
+    </ng-container>
+</div>
+<nav aria-label="Page navigation" style="margin-bottom: 50px;">
+    <ul class="pagination" style="justify-content: center;">
+        <li class="page-item">
+            <a (click)="appendQueryParam(-1)" class="page-link" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+            </a>
+        </li>
+        <li *ngFor="let i of numbersArray" class="page-item"><a class="page-link" style="color: blue;"
+                (click)="currentPage(+i)">{{i}}</a></li>
+        <li class="page-item">
+            <a (click)="appendQueryParam(1)" class="page-link" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+            </a>
+        </li>
+    </ul>
+</nav>

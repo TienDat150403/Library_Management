@@ -1,0 +1,11 @@
+
+const API_AUTH_LOGIN = "/api/auth/login"
+
+const RESULT_OK = "OK";
+const RESULT_WN = "WN";
+const RESULT_NG = "NG";
+
+const EMAIL_EXIST = "EMAIL_EXIST";
+const USERNAME_EXIST = "USERNAME_EXIST";
+const EMAIL_DONT_EXIST = "EMAIL_DONT_EXIST";
+const USERNAME_DONT_EXIST = "USERNAME_DONT_EXIST";

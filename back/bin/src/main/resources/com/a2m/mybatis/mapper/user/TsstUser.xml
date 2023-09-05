@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.a2m.back.dao.user.UserDAO">
+	<select id="getRoleForUser" parameterType="string"
+		resultType="com.a2m.back.model.Role">
+		SELECT
+		R.ROLE_ID as roleId,
+		R.ROLE_NM as roleNm
+		FROM BASE_USER_ROLE UR
+		JOIN BASEROLE R ON UR.ROLE_ID = R.ROLE_ID
+		WHERE UR.USER_UID = #{userUid}
+	</select>
+	<insert id="setRole" parameterType="String">
+	insert into BASE_USER_ROLE
+	values ("R001", #{userUid})
+	</insert>
+</mapper>

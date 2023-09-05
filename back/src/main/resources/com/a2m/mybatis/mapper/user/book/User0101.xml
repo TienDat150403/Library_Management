@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.a2m.back.dao.user.book.User0101DAO">
+	<insert id="insert"
+		parameterType="com.a2m.back.model.user.book.CartDto">
+		INSERT INTO GIOHANG
+		(
+		USER_UID,
+		BOOK_CODE
+		)
+		VALUES
+		(
+		#{userUid},
+		#{bookCode}
+		)
+	</insert>
+
+	<delete id="delete"
+		parameterType="com.a2m.back.model.user.book.CartDto">
+		delete from GIOHANG
+		where USER_UID = #{userUid}
+		and
+		BOOK_CODE = #{bookCode};
+	</delete>
+
+	<select id="getListBookInCart" parameterType="String">
+		SELECT B.BOOK_CODE as bookCode,
+		TITLE as title, 
+		PUBLISHER as publisher, 
+		PRICE as price, 
+		PAGES as pages, 
+		DESCRIPTION as description, 
+		STATUS as status, 
+		AUTHOR as author, 
+		CREATED_YEAR as createdYear, 
+		CATEGORY as category,
+		IMG as img
+		FROM
+		GIOHANG G
+		JOIN DAUSACH B ON G.BOOK_CODE = B.BOOK_CODE
+		WHERE G.USER_UID =
+		#{userUid};
+	</select>
+
+	<select id="checkBookExistInCart"
+		parameterType="com.a2m.back.model.user.book.CartDto">
+		SELECT EXISTS
+		(SELECT 1 FROM GIOHANG
+		WHERE USER_UID = #{userUid}
+		and
+		BOOK_CODE = #{bookCode});
+	</select>
+</mapper>

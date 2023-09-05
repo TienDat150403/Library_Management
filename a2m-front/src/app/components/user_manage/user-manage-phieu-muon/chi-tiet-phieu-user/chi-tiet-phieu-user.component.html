@@ -1,0 +1,150 @@
+<!-- Chi tiết các phiếu đã trả -->
+<div *ngIf="status==2">
+    <div class="content">
+        <div class="d-flex" style="justify-content: space-between;">
+            <div class="info-user d-flex shadow p-3 mb-3 bg-body rounded" style="width: 78%;">
+                <img src="https://cdn-icons-png.flaticon.com/128/3058/3058953.png" alt="" class="img-user">
+                <div class="col-4  center-left">
+                    <p class="col-11">Ngày nhận Sách: {{phieumuonDto.borrowDateReal | date:'dd/MM/yyyy'}} </p>
+                    <p class="col-11">Thời hạn trả: {{phieumuonDto.returnDateEstimate | date:'dd/MM/yyyy'}} </p>
+                    <p class="col-11">Ngày trả thực tế: {{phieumuonDto.returnUpdateReal | date:'dd/MM/yyyy'}} </p>
+                </div>
+            </div>
+            <div class="text-center shadow p-3 mb-3 bg-body rounded"
+                style="justify-content:center;align-items: center;width: 19%">
+                <p class="tien-phat" style="margin-top: 40px;">TỔNG TIỀN PHẠT </p>
+                <p class="tien-phat">{{phieumuonDto.fine | currencySuffix: 'VND':'':'1.0-0'}}</p>
+            </div>
+        </div>
+
+        <div class="info-phieumuon mt-3">
+            <div class="shadow p-3 mb-3 bg-body rounded">
+                <div style="display: flex;">
+                    <div class="form-check" style="width: 32%; margin: 0px;">
+                        <label class="form-check-label" for="flexCheckDefault"
+                            style="font-size: large;font-weight: bold;">
+                            Thông tin sản phẩm
+                        </label>
+                    </div>
+                    <p scope="col" style="width: 17%;text-align: center;font-weight: bold" class="content-item">Thể loại
+                    </p>
+                    <p scope="col" style="width: 17%; text-align: center;font-weight: bold" class="content-item">Nhà
+                        xuất
+                        bản
+                    </p>
+                    <p scope="col" style="width: 17%;text-align: center;font-weight: bold" class="content-item">Số trang
+                    </p>
+                    <p scope="col" style="width: 17%;text-align: center;font-weight: bold" class="content-item">Giá trị
+                    </p>
+                </div>
+                <hr>
+
+                <div *ngFor="let book of listBook; index as i">
+                    <div class="item-table d-flex">
+                        <div style="display: flex;width: 32%;">
+                            <div class="content-con1 d-flex  bd-highlight">
+                                <a [routerLink]="['/home/book/', book.bookCode]">
+                                    <img [src]="listImg[i]" alt="" class="img-item">
+                                </a>
+                                <div style="width:300px" class="center-left">
+                                    <p style="margin-bottom: 5px;font-weight: 500;">{{ book.title }}</p>
+                                    <p type="button" class="info-author" style="margin: 0px;font-size: 15px;">
+                                        Tác giả: {{book.author}}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <ng-container *ngIf="book.category === 0">
+                            <td style=" width: 17%" class="content-item">
+                                Sách thường</td>
+                        </ng-container>
+                        <ng-container *ngIf="book.category === 1">
+                            <td style="font-weight: 500; width: 17%;" class="content-item">Sách hiếm*
+                            </td>
+                        </ng-container>
+                        <td class="content-item" style="width: 17%">{{ book.publisher }}</td>
+                        <td class="content-item" style="width: 17%">{{ book.pages }}</td>
+                        <td class="content-item" style="width: 17%;">
+                            {{ book.price | currencySuffix: 'VND':'':'1.0-0' }}</td>
+                    </div>
+                    <hr>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Chi tiết các phiếu đã hủy -->
+<div *ngIf="status==3">
+    <div class="container" style="min-height: 786px;">
+        <div class="content">
+            <div class="info-user d-flex shadow p-3 mb-3 bg-body rounded">
+                <img src="https://cdn-icons-png.flaticon.com/128/3058/3058953.png" alt="" class="img-user">
+                <div class="col-4 center-left">
+                    <p class="col-11" style="margin-bottom: 7px;">Ngày tạo phiếu: {{phieumuonDto.createdDate |
+                        date:'dd/MM/yyyy'}} </p>
+                    <p class="col-11" style="font-size: 22px;font-weight: bold;color: red;">Ngày hủy phiếu:
+                        {{phieumuonDto.cancelDate | date:'dd/MM/yyyy'}}</p>
+                </div>
+            </div>
+            <div class="info-phieumuon mt-4">
+                <div class="shadow p-3 mb-3 bg-body rounded">
+                    <div style="display: flex;">
+                        <div class="form-check" style="width: 32%; margin: 0px;">
+                            <label class="form-check-label" for="flexCheckDefault"
+                                style="font-size: large;font-weight: bold;">
+                                Thông tin sản phẩm
+                            </label>
+                        </div>
+                        <p scope="col" style="width: 17%;text-align: center;font-weight: bold" class="content-item">Thể
+                            loại
+                        </p>
+                        <p scope="col" style="width: 17%; text-align: center;font-weight: bold" class="content-item">Nhà
+                            xuất
+                            bản
+                        </p>
+                        <p scope="col" style="width: 17%;text-align: center;font-weight: bold" class="content-item">Số
+                            trang
+                        </p>
+                        <p scope="col" style="width: 17%;text-align: center;font-weight: bold" class="content-item">Giá
+                            trị
+                        </p>
+                    </div>
+                    <hr>
+
+                    <div *ngFor="let book of listBook; index as i">
+                        <div class="item-table d-flex">
+                            <div style="display: flex;width: 32%;">
+                                <div class="content-con1 d-flex  bd-highlight">
+                                    <a [routerLink]="['/home/book/', book.bookCode]">
+                                        <img [src]="listImg[i]" alt="" class="img-item">
+                                    </a>
+                                    <div style="width:300px" class="center-left">
+                                        <p style="margin-bottom: 5px;font-weight: 500;">{{ book.title }}</p>
+                                        <p type="button" class="info-author" style="margin: 0px;font-size: 15px;">
+                                            Tác giả: {{book.author}}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <ng-container *ngIf="book.category === 0">
+                                <td style="width: 17%" class="content-item">
+                                    Sách thường</td>
+                            </ng-container>
+                            <ng-container *ngIf="book.category === 1">
+                                <td style="font-weight: 500; width: 17%;" class="content-item">Sách hiếm*
+                                </td>
+                            </ng-container>
+                            <td class="content-item" style="width: 17%">{{ book.publisher }}</td>
+                            <td class="content-item" style="width: 17%">{{ book.pages }}</td>
+                            <td class="content-item" style="width: 17%; ">
+                                {{ book.price | currencySuffix: 'VND':'':'1.0-0' }}</td>
+                        </div>
+                        <hr>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

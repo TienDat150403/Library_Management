@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="notice/commonHead::head">
+
+</head>
+<body class="page-user">
+<div class="page-content">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-xl-9 col-lg-10">
+                <div class="content-area card" style="background: none;">
+                    <div class="card-innr">
+                        <table class="email-wraper">
+                            <tbody>
+                            <tr>
+                                <td class="pdt-4x pdb-4x">
+                                    <table class="email-body email-warning">
+                                        <tbody>
+                                        <tr>
+                                            <td class="text-center pd-5x pdl-3x pdr-3x">
+                                                <img class="w-88px mgb-1x" th:src="@{/images/kyc-pending.png}" alt="img">
+                                                <h2 class="email-heading-s3 email-heading-warning" th:text="${title}"></h2>
+                                                <a th:href="${url}" class="email-btn email-btn-sm mt-3" th:text="${btnTitle}"></a>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

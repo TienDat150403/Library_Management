@@ -1,0 +1,120 @@
+.btn {
+    width: 140px;
+    height: max-content;
+    margin-right: 20px;
+}
+
+
+.menu {
+    margin: 20px 0px;
+    align-content: center;
+}
+
+.form-check {
+    margin-top: 35px;
+    margin-left: 10px;
+}
+
+.content-con1 {
+    width: 400px;
+}
+
+.img-item {
+    width: 75px;
+    height: 75px;
+    margin-right: 20px;
+}
+
+.info {
+    margin: 0px;
+    margin-right: 10px;
+}
+
+.img-info {
+    height: 40px;
+    width: 40px;
+    margin: 0px 10px;
+}
+
+
+.item-table {
+    border-radius: 10px;
+}
+
+.content-item {
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    text-align: center;
+}
+
+.confirm-all {
+    width: 140px;
+    margin: 6px 0;
+    position: absolute;
+    top: 173px;
+    left: 630px;
+    z-index: 1;
+}
+
+.search {
+    width: 200px;
+    margin: 8px 0;
+    position: absolute;
+    top: 170px;
+    right: 260px;
+    z-index: 1;
+    display: flex;
+}
+
+/* CSS để hiển thị tooltip */
+.wait_link {
+    position: relative;
+    /* Đảm bảo tooltip nằm trong phạm vi của nút */
+}
+
+/* Ẩn tooltip ban đầu */
+.wait_link .tooltiptext {
+    visibility: hidden;
+    width: 100px;
+    background-color: rgb(135, 135, 135);
+    color: white;
+    text-align: center;
+    padding: 3px;
+    border-radius: 5px;
+    font-size: 13px;
+    position: absolute;
+    z-index: 1;
+    bottom: 120%;
+    /* Hiển thị phía trên nút */
+    left: 50%;
+    /* Canh giữa */
+    transform: translateX(-50%);
+    /* Dịch chuyển để căn giữa tooltip */
+    opacity: 0;
+    /* Mặc định ẩn */
+    transition: opacity 0.3s, visibility 0.3s;
+    /* Hiệu ứng hiển thị */
+}
+
+/* Hiển thị tooltip khi di chuột qua nút */
+.wait_link:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+}
+
+.select_option {
+    z-index: 1;
+    width: 8%;
+    position: absolute;
+    top: 157px;
+    right: 550px;
+}
+
+.select_option select {
+    height: 38px;
+}
+
+.page-item:active {
+    background-color: aliceblue;
+}

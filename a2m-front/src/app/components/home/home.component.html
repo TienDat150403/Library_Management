@@ -1,0 +1,63 @@
+<div class="container">
+  <div style="margin-top: 20px;width: 180px;height: max-content;" class="shadow-sm bg-body-tertiary p-3 mr-2 rounded">
+    <h3>Tác giả</h3>
+    <div class="checkbox" *ngFor="let a of listAuthorToFIlter">
+      <label>
+        <input type="checkbox" [value]="a" (change)="handleCheckboxChange(a)"> {{a}}
+      </label>
+    </div>
+  </div>
+
+  <div class="main" style="min-height: 786px;">
+    <div class="row" *ngFor="let g of groupBookTitle | paginate: {
+      itemsPerPage: tableSize,
+      currentPage: pageCurrent,
+      totalItems: maxPage.valueOf() * 3}; let i = index">
+      <div class="item-book shadow bg-body rounded" *ngFor="let b of g; let j = index">
+        <button style="background-color: #ffffff;border: #ffffff;"> <img src={{imageArray[i*4+j]}} alt=""
+            class="img-book" (click)="showBookDetail(b)">
+        </button>
+        <div style="height: 80px; align-content: flex-end;" class="content-book">
+          <div style="height: 70px;">
+            <p class="book_author" type="button">Tác giả: {{b.author}}</p>
+            <p class="title-book" style="margin: 0px;">{{b.title}}</p>
+          </div>
+          <div *ngIf="b.quantity !== 0; else btn_disable">
+            <button type="button" class="btn_add" (click)="addBookToCart(b)">
+              <img src="https://cdn-icons-png.flaticon.com/128/7361/7361969.png" alt="" class="img_add ">
+              <span class="tooltiptext">Thêm sách!</span>
+            </button>
+          </div>
+          <ng-template #btn_disable>
+            <button type="button" class="btn_add" (click)="addBookToCart(b)">
+              <img src="https://cdn-icons-png.flaticon.com/128/2169/2169997.png" alt="" class="img_add ">
+              <span class="tooltiptext">Sách đã hết!</span>
+            </button>
+          </ng-template>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>>
+<!-- <nav aria-label="Page navigation">
+  <ul class="pagination" style="justify-content: center;margin: 50px 0px;">
+    <li class="page-item">
+      <a class="page-link" aria-label="Previous" (click)="showPagePrvious()">
+        <span aria-hidden="true">&laquo;</span>
+      </a>
+    </li>
+    <li *ngFor="let i of numbersArray.slice(this.pageCurrent - 1, showMaxPage)" class="page-item"
+      [ngClass]="{'active': pageCurrent === i}"><a class="page-link" style="color: blue;"
+        (click)="appendQueryParam(i)">{{i}}</a></li>
+    <li class="page-item">
+      <a class="page-link" aria-label="Next" (click)="showPageNext()">
+        <span aria-hidden="true">&raquo;</span>
+      </a>
+    </li>
+  </ul>
+</nav> -->
+
+<div>
+  <pagination-controls class="pagination" style="justify-content: center;margin: 50px 0px;" previousLabel=""
+    nextLabel="" (pageChange)="changePage($event)"></pagination-controls>
+</div>

@@ -1,0 +1,25 @@
+table {
+    width: 100%;
+}
+
+.center {
+    margin: auto;
+    padding: 10px;
+}
+
+td {
+    text-align: center;
+    vertical-align: middle;
+}
+
+.img-item {
+    width: 100px;
+    height: auto;
+}
+
+.cacul {
+    border: none;
+    font-size: 20px;
+    color: red;
+    font-weight: bold;
+}

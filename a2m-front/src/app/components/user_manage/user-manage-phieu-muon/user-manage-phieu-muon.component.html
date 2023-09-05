@@ -1,0 +1,22 @@
+<div class="container" style="min-height: 786px;">
+    <div style="margin-top: 20px;margin-bottom: 20px;">
+
+        <input [routerLink]="['status/0']" type="radio" class="btn-check" name="btnradio" id="btnradio1" [value]="0"
+            autocomplete="off" [checked]="status === 0" (change)="onChangeStatus(0)">
+        <label class="btn btn-outline-warning" for="btnradio1">Đang chờ</label>
+
+        <input [routerLink]="['status/1']" type="radio" class="btn-check" name="btnradio" id="btnradio2" [value]="1"
+            autocomplete="off" [checked]="status === 1" (change)="onChangeStatus(1)">
+        <label class="btn btn-outline-primary" for="btnradio2">Đang mượn</label>
+
+        <input [routerLink]="['status/2']" type="radio" class="btn-check" name="btnradio" id="btnradio3" [value]="2"
+            autocomplete="off" [checked]="status === 2" (change)="onChangeStatus(2)">
+        <label class="btn btn-outline-success" for="btnradio3">Đã trả</label>
+
+        <input [routerLink]="['status/3']" type="radio" class="btn-check" name="btnradio" id="btnradio4" [value]="3"
+            autocomplete="off" [checked]="status === 3" (change)="onChangeStatus(3)">
+        <label class="btn btn-outline-danger" for="btnradio4">Đã hủy</label>
+    </div>
+    <hr>
+    <router-outlet></router-outlet>
+</div>

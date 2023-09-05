@@ -1,0 +1,140 @@
+<div class="container" style="min-height: 786px;">
+  <!-- <div class="d-flex p-2 bd-highlight">
+    <add-book-title></add-book-title>
+  </div> -->
+  <!-- <div class="header_wrap">
+    <div>
+      <a routerLink="/sys/list-dausach/add" class="book_add_tt">
+        <img src="../../../../assets/img/addBook.png" alt="" style="margin-top: 10px;width: 55px;height: 55px;">
+        <span class="tooltiptext">Thêm sách</span>
+      </a>
+    </div>
+  </div> -->
+  <!-- <hr> -->
+
+  <!-- Hiển thị danh sách các sách đang hoạt động-->
+  <div style="display: flex; background-color: antiquewhite" class="shadow-sm p-3 mb-3 bg-body rounded">
+    <div class="form-check" style="width: 30%; margin: 0px;">
+      <label class="form-check-label" for="flexCheckDefault" style="font-size: large;font-weight: bold;">
+        Sản phẩm
+      </label>
+    </div>
+    <p scope="col" style="width: 14%; text-align: center;font-weight: bold" class="content-item">Nhà xuất bản
+    </p>
+    <p scope="col" style="width: 14%;text-align: center;font-weight: bold" class="content-item">Tác giả
+    </p>
+    <p scope="col" style="width: 14%;text-align: center;font-weight: bold" class="content-item">Số lượng
+    </p>
+    <p scope="col" style="width: 14%;text-align: center;font-weight: bold" class="content-item">Giá trị
+    </p>
+    <p scope="col" style="width: 14%;text-align: center;font-weight: bold" class="content-item">Thao tác</p>
+  </div>
+
+  <div id="status0">
+    <div *ngFor="let item of listBookTitle | paginate: {
+      itemsPerPage: tableSize,
+      currentPage: pageCurrent,
+      totalItems: maxPage.valueOf() * tableSize}; let i = index">
+      <div class="item-table d-flex content shadow p-3 mb-3 bg-body rounded">
+        <div style="display: flex;width: 30%;">
+          <div class="content-con1 d-flex p-2 bd-highlight">
+            <a routerLink="/sys/list-dausach/detail/{{item.bookCode}}">
+              <img [src]="imageArray[i]" alt="" class="img-item"> 
+            </a>
+            <div style="width:200px;margin-top: 20px;">
+              <p class="info">{{item.title}}</p>
+            </div>
+          </div>
+        </div>
+        <td class="content-item" style="width: 14%">{{item.publisher}}</td>
+        <td class="content-item" style="width: 14%">{{item.author}}</td>
+        <td class="content-item" style="width: 14%">{{item.publisher}}</td>
+        <td class="content-item" style="width: 14%; font-style: italic; color: red;font-weight: 600;">{{item.price}} vnđ
+        </td>
+        <div class="content-item" style=" width: 14%;">
+          <div style="text-align: center;">
+            <a routerLink="/sys/list-dausach/edit/{{item.bookCode}}" class="book_tooltip">
+              <img src="https://cdn-icons-png.flaticon.com/128/2961/2961324.png" alt="" class="img-send">
+              <span class="tooltiptext">Sửa thông tin sách</span>
+            </a>
+            <a routerLink="/sys/list-dausach/detail/{{item.bookCode}}" class="book_tooltip">
+              <img src="https://cdn-icons-png.flaticon.com/128/2055/2055849.png" alt="" class="img-send">
+              <span class="tooltiptext">Xem thông tin sách</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Hiển thị danh sách các sách đã ngưng hoạt động-->
+
+  <!-- <div class="modal fade" id="modal-disable-cat" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <img src="https://cdn-icons-png.flaticon.com/128/1041/1041891.png" alt=""
+            style="width: 30px; height: 30px;margin-right: 10px;">
+          <img src="https://cdn-icons-png.flaticon.com/128/1041/1041891.png" alt=""
+            style="width: 30px; height: 30px;margin-right: 10px">
+          <img src="https://cdn-icons-png.flaticon.com/128/1041/1041891.png" alt="" style="width: 30px; height: 30px;">
+          <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          Bạn chắc chắn muốn ngưng cung cấp sản phẩm này chứ ?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" (click)="closeModelDisable()">Hủy</button>
+          <button type="button" class="btn btn-success" (click)="disable()">Đồng ý</button>
+        </div>
+      </div>
+    </div>
+  </div> -->
+
+  <div class="modal fade" id="modal-enable-cat" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <img src="https://cdn-icons-png.flaticon.com/128/1041/1041891.png" alt="" style="width: 30px; height: 30px;">
+          <img src="https://cdn-icons-png.flaticon.com/128/1041/1041891.png" alt="" style="width: 30px; height: 30px;">
+          <img src="https://cdn-icons-png.flaticon.com/128/1041/1041891.png" alt="" style="width: 30px; height: 30px;">
+          <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          Bạn có muốn enable đầu sách này không?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" (click)="closeModelEnable()">Hủy</button>
+          <button type="button" class="btn btn-danger" (click)="enable()">Đồng ý</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+<div>
+  <pagination-controls class="pagination" style="justify-content: center;margin: 50px 0px;" previousLabel=""
+    nextLabel="" (pageChange)="changePage($event)"></pagination-controls>
+</div>
+<!-- Phân trang ở đây -->
+
+<!-- <nav aria-label="Page navigation" style="margin: 20px 0px;">
+  <ul class="pagination" style="justify-content: center;">
+    <li class="page-item">
+      <a class="page-link" href="#" aria-label="Previous">
+        <span aria-hidden="true">&laquo;</span>
+      </a>
+    </li>
+    (click)="appendQueryParam(i)"
+    <li *ngFor="let i of numbersArray" class="page-item"><a class="page-link" style="color: blue;">{{i}}</a></li>
+    <li class="page-item">
+      <a class="page-link" href="#" aria-label="Next">
+        <span aria-hidden="true">&raquo;</span>
+      </a>
+    </li>
+  </ul>
+</nav> -->

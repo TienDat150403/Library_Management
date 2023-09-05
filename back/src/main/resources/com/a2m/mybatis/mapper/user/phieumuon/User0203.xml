@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.a2m.back.dao.user.phieumuon.User0203DAO">
+
+	<select id="getPhieuMuonInfo" parameterType="int" resultType="com.a2m.back.model.resp.phieumuonResponse">	
+		select USER_UID as userUid, ID_PHIEU_MUON as idPhieuMuon, STATUS as status, EXTENDED_TIMES as extended_times,
+		CREATED_DATE as createdDate, BORROW_DATE as borrowDate, RETURN_DATE_ESTIMATE as returnDateEstimate, RETURN_UPDATE_REAL as returnUpdateReal,
+		FINE as fine, CANCEL_DATE as cancelDate
+		from PHIEUMUON
+		where STATUS = 0 AND ID_PHIEU_MUON = #{idPhieuMuon};
+	</select> 
+	
+	<update id="extendReturnDate" parameterType="com.a2m.back.model.resp.phieumuonResponse">
+		UPDATE PHIEUMUON
+		SET RETURN_DATE_ESTIMATE = #{returnDateEstimate},
+		EXTENDED_TIMES = 1
+		WHERE ID_PHIEU_MUON = #{idPhieuMuon}
+	</update>
+</mapper>

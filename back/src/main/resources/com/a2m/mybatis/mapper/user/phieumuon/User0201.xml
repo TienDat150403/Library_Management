@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.a2m.back.dao.user.phieumuon.User0201DAO">
+	<select id="getAvailableBookByBookCode" parameterType="String"
+		resultType="String">
+		SELECT BOOK_ID FROM SACH
+		WHERE BOOK_CODE = #{bookCode}
+		AND STATUS = 1
+		AND BOOK_ID NOT IN
+		(SELECT BOOK_ID FROM SACHMUON
+		WHERE SUBSTRING(BOOK_ID, 1, 4) = #{bookCode}
+		AND STATUS = 0)
+		LIMIT 1
+	</select>
+
+	<insert id="addSachMuon"
+		parameterType="com.a2m.back.model.sys.phieumuon.BorrowedBooksDto">
+		INSERT INTO SACHMUON (ID_PHIEU_MUON, BOOK_ID, STATUS)
+		VALUES(
+		#{ID_PHIEU_MUON},
+		#{bookId},
+		0
+		)
+	</insert>
+
+	<select id="checkIdPhieuMuonByUserUid" parameterType="Long"
+		resultType="int">
+		SELECT COUNT(*) ID_PHIEU_MUON FROM PHIEUMUON WHERE
+		USER_UID=#{userUid}
+	</select>
+
+	<select id="getIdPhieuMuonByUserUid" parameterType="Long"
+		resultType="int">
+		SELECT ID_PHIEU_MUON FROM PHIEUMUON WHERE
+		USER_UID=#{userUid} AND STATUS=0
+	</select>
+
+	<insert id="addPhieuMuon"
+		parameterType="com.a2m.back.model.resp.phieumuonResponse">
+		INSERT INTO PHIEUMUON (USER_UID, BORROW_DATE,
+		CREATED_DATE, STATUS, EXTENDED_TIMES) VALUES(
+		#{userUid},
+		#{borrowDate},
+		#{createdDate},
+		#{status},
+		#{extended_times}
+		)
+	</insert>
+
+	<select id="checkPhieuMuonExists" parameterType="Long"
+		resultType="int">
+		SELECT COUNT(*) FROM PHIEUMUON WHERE USER_UID=#{userUid}
+		AND (STATUS = 0 OR STATUS = 1)
+	</select>
+
+	<update id='updateSachMuon' parameterType='String'>
+		update SACHMUON
+		set status = #{status}
+		where ID_PHIEU_MUON = #{idPhieuMuon}
+	</update>
+
+	<select id='getUserUidByIdPhieuMuon' parameterType='String'>
+		select USER_UID
+		from PHIEUMUON
+		where ID_PHIEU_MUON = #{idPhieuMuon}
+	</select>
+</mapper>

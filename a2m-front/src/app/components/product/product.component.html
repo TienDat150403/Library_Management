@@ -1,0 +1,64 @@
+<div class="container">
+  <div class="content shadow-sm p-3 mb-3 bg-body rounded">
+
+    <div class="d-flex" style="align-items: center; justify-content: center;padding-bottom: 30px;">
+
+      <div style="margin-right: auto; margin-left: auto;">
+        <img [src]="imageSrc" alt="ảnh sách" class="img-book">
+      </div>
+
+      <!-- Product details -->
+      <div class="col-6 shadow-sm p-3 bg-body rounded">
+        <div class="product-details">
+          <h2 class="product-name">{{bookTitle?.title}}</h2>
+          <hr style="margin: 5px;">
+
+          <div>
+            <p class="product-info" style="margin-top: 20px;">Tác giả: {{bookTitle?.author}}</p>
+            <p class="product-info">Nhà xuất bản: {{bookTitle?.publisher}}</p>
+            <p class="product-info">Năm xuất bản: {{bookTitle?.createdYear}}</p>
+            <p class="product-info">Số trang: {{bookTitle?.pages}}</p>
+            <p class="product-price">Giá trị: {{bookTitle?.price | currencySuffix: 'VND':'':'1.0-0' }} </p>
+          </div>
+
+          <ul class="d-flex category-book">
+            <li style="margin-right: 5px;">Thể loại:</li>
+            <div *ngFor="let item of bookTitle.genres; let last = last" type="buton">
+              <li><a style="cursor:pointer;" (click)="navigateToHome(item)">{{item.genre_name}}{{ !last ? ' , ' : ''
+                  }}&nbsp;</a></li>
+            </div>
+          </ul>
+
+          <hr>
+
+          <div class="add-to-cart d-flex">
+            <div class="action-book" (click)='addBookToWaitList()'>
+              <a type="button">
+                <img src="https://cdn-icons-png.flaticon.com/128/6130/6130950.png" alt="" class="img-action">
+                Nhận thông báo
+              </a>
+            </div>
+            <div class="action-book" type="button" (click)="addBookToCart()"
+              [ngClass]="{'disabled-link': bookTitle && bookTitle.quantity === 0}">
+              <a>
+                <img src="https://cdn-icons-png.flaticon.com/128/7361/7361890.png" alt="" class="img-action">
+                Thêm vào giỏ hàng
+              </a>
+            </div>
+            <div class="action-book" type="button" (click)="borrow()"
+              [ngClass]="{'disabled-link': bookTitle && bookTitle.quantity === 0}">
+              <a>
+                <img src="https://cdn-icons-png.flaticon.com/128/5328/5328095.png" alt="" class="img-action">
+                Mượn ngay
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="des-book col-12 shadow p-3 bg-body rounded">
+    <p class="des">Mô tả chi tiết</p>
+    <p>{{bookTitle.description}}</p>
+  </div>
+</div>

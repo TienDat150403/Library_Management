@@ -1,0 +1,99 @@
+.btn {
+  width: 200px;
+  height: max-content;
+}
+
+.menu {
+  margin: 20px 0px;
+  align-content: center;
+}
+
+.form-check {
+  margin-top: 35px;
+  margin-left: 10px;
+}
+
+.content-con1 {
+  width: 400px;
+}
+
+.img-item {
+  width: 75px;
+  height: 75px;
+  margin-right: 20px;
+}
+
+.info {
+  margin: 0px;
+  margin-right: 10px;
+}
+
+.img-send {
+  height: 30px;
+  width: 30px;
+  margin: 0px 10px;
+}
+
+
+.item-table {
+  border-radius: 10px;
+}
+
+.content-item {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  padding-left: 20px;
+}
+
+
+#detail:hover {
+  color: rgb(21, 0, 255);
+  font-weight: 500px;
+}
+
+/* CSS để hiển thị tooltip */
+.wait_link {
+  position: relative;
+  /* Đảm bảo tooltip nằm trong phạm vi của nút */
+}
+
+/* Ẩn tooltip ban đầu */
+.wait_link .tooltiptext {
+  visibility: hidden;
+  width: 90px;
+  background-color: rgb(135, 135, 135);
+  color: white;
+  text-align: center;
+  padding: 3px;
+  border-radius: 5px;
+  font-size: 13px;
+  position: absolute;
+  z-index: 1;
+  bottom: 30%;
+  /* Hiển thị phía trên nút */
+  left: 104%;
+  /* Canh giữa */
+  transform: translateX(-50%);
+  /* Dịch chuyển để căn giữa tooltip */
+  opacity: 0;
+  /* Mặc định ẩn */
+  transition: opacity 0.3s, visibility 0.3s;
+  /* Hiệu ứng hiển thị */
+}
+
+/* Hiển thị tooltip khi di chuột qua nút */
+.wait_link:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1;
+}
+
+.search {
+  width: 200px;
+  margin: 8px 0;
+  position: absolute;
+  top: 150px;
+  right: 260px;
+  z-index: 1;
+  display: flex
+}

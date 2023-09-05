@@ -1,0 +1,109 @@
+<!-- Hiển thị danh sách phiếu mượn với status là " đang chờ xác nhận " -->
+<ng-container *ngIf="listBook && listBook.length === 0; else list">
+    <div style="width: 200px;">
+        <p style="font-size: 18px; font-weight: 500; color:red; width: 600px;">
+            Hiện tại bạn này không có phiếu nào đang chờ xác nhận!
+        </p>
+    </div>
+</ng-container>
+<ng-template #list>
+    <div style="min-height: 786px;">
+        <div style="display: flex; background-color: antiquewhite" class="shadow-sm p-3 mb-4 bg-body rounded">
+            <div class="form-check" style="width: 32%; margin: 0px;">
+                <label class="form-check-label" for="flexCheckDefault" style="font-size: large;font-weight: bold;">
+                    Thông tin phiếu mượn
+                </label>
+            </div>
+            <p scope="col" style="width: 17%;text-align: center;font-weight: bold" class="content-item">Thể loại
+            </p>
+            <p scope="col" style="width: 17%; text-align: center;font-weight: bold" class="content-item">Nhà xuất bản
+            </p>
+            <p scope="col" style="width: 17%;text-align: center;font-weight: bold" class="content-item">Số trang</p>
+            <p scope="col" style="width: 17%;text-align: center;font-weight: bold" class="content-item">Giá trị</p>
+        </div>
+        <div *ngFor="let pm of phieumuonDto">
+            <div class="shadow p-3 mb-3 bg-body rounded">
+                <div class="content " *ngFor="let item of pm.listBook; index as i">
+                    <div class="item-table d-flex">
+                        <div style="display: flex;width: 32%;">
+                            <div class="content-con1 d-flex  bd-highlight">
+                                <a [routerLink]="['/home/book/', item.bookCode]"> <img [src]="listImg[i]" alt=""
+                                        class="img-item">
+                                </a>
+                                <div style="width:300px" class="center-left">
+                                    <p style="margin-bottom: 5px;font-weight: 500;">{{ item.title }}</p>
+                                    <p type="button" class="info-author" style="margin: 0px;font-size: 15px;">
+                                        Tác giả: {{item.author}}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <td class="content-item" style="width: 17%">category</td>
+                        <td class="content-item" style="width: 17%">{{item?.publisher}}</td>
+                        <td class="content-item" style="width: 17%">{{item?.pages}}</td>
+                        <td class="content-item" style="width: 17%; ">
+                            {{item?.price | currencySuffix: 'VND':'':'1.0-0' }}</td>
+                    </div>
+                    <hr>
+                </div>
+                <div class="d-flex ">
+
+                    <p style="font-size: 22px;color: red; font-weight: bold;" class="col-10">Ngày tạo phiếu:
+                        {{pm.createdDate | date:' dd/MM/yyyy'}}</p>
+                    <button (click)="getPhieuDangChoXacNhan(pm)" type="button" class="btn btn-outline-danger col-8"
+                        data-bs-toggle="modal" data-bs-target="#exampleModal" style="display: block;width: auto;">Hủy
+                        phiếu </button>
+                    <button (click)="getPhieuDangChoXacNhan(pm)" type="button" class="btn btn-success col-8"
+                        data-bs-toggle="modal" data-bs-target="#ModalXacNhan" style="display: block;width: auto;">Xác
+                        nhận</button>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Modal Xác Nhận Hủy -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel"
+                            style="color: red; font-family: Arial, Helvetica, sans-serif;">Xác nhận !!!</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        Bạn đã chắc chắn muốn hủy phiếu này chứ?
+                    </div>
+                    <div class="modal-footer" style="justify-content: center;">
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal"
+                            style="width: 150px;margin-right: 20px;">Hủy</button>
+                        <button (click)="cancelPhieuMuon()" type="button" class="btn btn-success"
+                            data-bs-dismiss="modal" style="width: 150px;">Xác
+                            nhận</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Modal Xác Nhận -->
+        <div class="modal fade" id="ModalXacNhan" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel"
+                            style="color: red; font-family: Arial, Helvetica, sans-serif;">Xác nhận !!!</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        Bạn đã chắc chắn muốn xác nhận phiếu này chứ?
+                    </div>
+                    <div class="modal-footer" style="justify-content: center;">
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal"
+                            style="width: 150px;margin-right: 20px;">Hủy</button>
+                        <button (click)="updateStatus()" type="button" class="btn btn-success" data-bs-dismiss="modal"
+                            style="width: 150px;">Xác
+                            nhận</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>

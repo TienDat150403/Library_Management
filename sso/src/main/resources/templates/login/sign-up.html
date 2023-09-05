@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="common/commonHeader::head">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+</head>
+
+<body class="page-ath" style="font-family: 'Times New Roman' !important;">
+    <input type="hidden" th:value="${redirect_uri}" id="redirectUri">
+
+    <div class="page-ath-wrap">
+        <div class="col-7">
+            <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp"
+                alt="Sample image" style="padding-top:80px">
+        </div>
+        <div class="page-ath-content col-4 shadow p-3 bg-body-tertiary rounded col-5">
+            <div class="page-ath-form ">
+                <h2 style="color: #036; font-weight: 600">Đăng kí tài khoản mới</h2>
+                <div>
+                    <label class="input-item-label text-exlight">Họ và tên <span style="color: red">*</span></label>
+                    <div class="input-wrap mb-2">
+                        <div class="form-outline">
+                            <input type="text" name="fullname" id="fullname-sign-up" class="form-control" />
+                        </div>
+                        <span id="err-fullname-sign-up" style="color:red"></span>
+                    </div>
+
+                    <label class="input-item-label text-exlight">Email <span style="color: red">*</span></label>
+                    <div class="input-wrap mb-2">
+                        <div class="form-outline">
+                            <input type="email" name="fullname" id="email-sign-up" class="form-control" />
+                        </div>
+                        <span id="err-email-sign-up" style="color:red"></span>
+                    </div>
+
+                    <label class="input-item-label text-exlight">Tên người dùng <span
+                            style="color: red">*</span></label>
+                    <div class="input-wrap mb-2">
+                        <div class="form-outline">
+                            <input type="text" name="username" id="username-sign-up" class="form-control" />
+                        </div>
+                        <span id="err-username-sign-up" style="color:red"></span>
+                    </div>
+
+                    <label class="input-item-label text-exlight">Mật khẩu <span style="color: red">*</span></label>
+                    <div class="input-wrap mb-2">
+                        <div class="form-outline">
+                            <input type="password" name="password" id="password-sign-up" class="form-control" />
+                        </div>
+                        <span class="pb-1"><i style="color: blue" id="showCursor" class="fas fa-eye"
+                                onclick="showPassword(event)"></i></span>
+                        <span id="err-password-sign-up" style="color:red"></span>
+                    </div>
+
+                    <label class="input-item-label text-exlight">Nhập lại mật khẩu <span
+                            style="color: red">*</span></label>
+                    <div class="input-item mb-2">
+                        <div class="form-outline">
+                            <input type="password" name="password" id="repeat-password-sign-up" class="form-control" />
+                        </div>
+                        <span id="err-repeat-password-sign-up" style="color:red"></span>
+                    </div>
+
+                    <button class="btn btn-primary btn-block" id="btn-sign-up">Đăng kí</button>
+
+                    <div class="gaps-2x"></div>
+                    <div class="form-note">
+                        Đã có tài khoản ? <a th:href="@{/auth/login(redirectUri=${redirect_uri})}"> <strong>Đăng
+                                nhập</strong></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="toast-container" class="toast-top-right" style="display: none">
+            <div class="toast toast-error" aria-live="assertive">
+                <div class="toast-message"><em class="ti ti-na toast-message-icon"></em> <span id="toast-mess"></span>
+                </div>
+            </div>
+        </div>
+
+
+        <script th:replace="common/commonJS::script"></script>
+        <script th:src="@{/js/sign-up.js}"></script>
+</body>
+
+</html>

@@ -1,0 +1,110 @@
+<div class="container">
+  <div class="content ">
+    <div class="d-flex" style="align-items: center; justify-content: center;padding-bottom: 30px;">
+      <div class="shadow p-3 bg-body rounded col-5">
+        <img [src]="imageSrc" alt="ảnh sách" class=" img-book">
+      </div>
+      <div style="width: 30px;"></div>
+      <!-- Product details -->
+      <div class="col-6 shadow p-3 bg-body rounded">
+        <div class="product-details">
+          <h2 class="product-name">{{bookTitle?.title}}</h2>
+          <hr style="margin: 5px;">
+
+          <div>
+            <p class="product-info" style="margin-top: 20px;">Tác giả: {{bookTitle?.author}}</p>
+            <p class="product-info">Nhà xuất bản: {{bookTitle?.publisher}}</p>
+            <p class="product-info">Năm xuất bản: {{bookTitle?.createdYear}}</p>
+            <p class="product-info">Số trang: {{bookTitle?.pages}}</p>
+            <p class="product-info">Giá: {{bookTitle?.price | currencySuffix: 'VND':'':'1.0-0' }} </p>
+          </div>
+
+          <ul class="d-flex category-book">
+            <li style="margin-right: 5px;">Thể loại:</li>
+            <!-- <li><a href="#">Truyện ngắn</a></li> -->
+            <div *ngFor="let item of bookTitle.genres; let last = last">
+              <li><a style="cursor:pointer;" (click)="genreNav(item)">{{item.genre_name}}{{ !last ? ' , ' : '' }}</a>
+              </li>
+            </div>
+          </ul>
+
+          <hr>
+
+          <div>
+            <p class="product-info">Tổng số sách: {{bookList.length}} </p>
+            <p class="product-info" style="font-weight: bold;font-size: 18px;color: red;">Số lượng sách có thể cho mượn:
+              {{bookTitle?.quantity}} </p>
+          </div>
+
+          <hr>
+
+          <div class="add-to-cart d-flex">
+            <div class="wrapper d-flex">
+              <button class="plusminus" (click)="handleMinus()">-</button>
+              <input type="number" id="quantity" name="quantity" class="num" [(ngModel)]="quantity" />
+              <button class="plusminus" (click)="handlePlus()">+</button>
+            </div>
+            <div class="action-book">
+              <button class="btn btn-primary" (click)="addBooks()">Thêm sách</button>
+            </div>
+            <div class="action-book" style="margin-right: 20px">
+              <button class="btn btn-primary" routerLink="/sys/list-dausach/edit/{{id}}">Sửa đầu sách</button>
+            </div>
+            <div class="action-book">
+              <button class="btn btn-success" *ngIf="bookTitle.status == '0'"
+                (click)="enableBookTitle(bookTitle.bookCode)">Kích hoạt</button>
+              <button class="btn btn-danger" *ngIf="bookTitle.status == '1'"
+                (click)="disableBookTitle(bookTitle.bookCode)">Vô hiệu hóa</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-12 d-flex justify-content-center mb-5">
+    <div class=" shadow p-3 bg-body rounded col-5">
+      <p class="des">Mô tả chi tiết</p>
+      <p>{{bookTitle.description}}</p>
+    </div>
+    <div style="width: 30px;"></div>
+    <div class="shadow bg-body rounded col-6">
+      <div style="height: 600px;padding: 10px;">
+        <!-- Hiển thị danh sách các sách đang hoạt động-->
+        <div style="display: flex; background-color: antiquewhite" class="shadow p-3 mb-3 bg-body rounded">
+          <p scope="col" style="width: 50%; text-align: center;font-weight: bold" class="content-item">Mã sách
+          </p>
+          <p scope="col" style="width: 50%;text-align: center;font-weight: bold" class="content-item">Tình trạng
+          </p>
+          <p scope="col" style="width: 50%;text-align: center;font-weight: bold" class="content-item">Trạng thái
+          </p>
+          <p scope="col" style="width: 50%;text-align: center;font-weight: bold" class="content-item">Hành động
+          </p>
+        </div>
+        <div class="scroll-container">
+          <div id="status">
+            <div *ngFor="let item of bookList">
+              <div class="item-table d-flex content shadow p-3 mb-3 bg-body rounded">
+                <td class="content-item" style="width: 100%">{{item.bookId}}</td>
+                <div class="content-item" style="width: 100%">
+                  <td class="content-item" style="width: 100%; color:green" *ngIf="item.status === 1">Đang cung cấp</td>
+                  <td class="content-item" style="width: 100%; color:red" *ngIf="item.status === 0">Ngừng cung cấp</td>
+                </div>
+                <div class="content-item" style="width: 100%">
+                  <td class="content-item" style="width: 100%; color:red" *ngIf="item.isAvailable !== 0">Đang mượn</td>
+                  <td class="content-item" style="width: 100%; color:green" *ngIf="item.isAvailable === 0">Đang có sẵn
+                  </td>
+                </div>
+                <div class="content-item" style="width: 100%">
+                  <button class="btn btn-danger" *ngIf="item.status === 1" style="width: 85%"
+                    (click)="disableBook(item)">Vô hiệu hóa</button>
+                  <button class="btn btn-success" *ngIf="item.status === 0" style="width: 85%"
+                    (click)="enableBook(item)">Kích hoạt</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

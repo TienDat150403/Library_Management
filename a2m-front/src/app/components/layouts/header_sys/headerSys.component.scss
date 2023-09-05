@@ -1,0 +1,86 @@
+.container {
+  display: flex;
+}
+
+.row_header {
+  width: 100%;
+}
+
+.header-logo .logo img {
+  display: block;
+  margin-left: 28px;
+}
+
+.top-header-container {
+  gap: 548px;
+}
+
+.pull-left {
+  margin-bottom: 0;
+}
+
+.pull-right {
+  margin-bottom: 0;
+}
+
+
+#header {
+  padding: 0;
+
+}
+
+.user-menu {
+  width: 150px;
+  height: auto;
+  background: #fff;
+  margin: 10px 0;
+  padding: 2px 12px;
+  border-radius: 5px;
+  position: absolute;
+  top: 60px;
+  right: -10px;
+  z-index: 1;
+  box-shadow: 0 1px 2px #e0e0e0;
+  display: none;
+}
+
+.user-menu::before {
+  content: "";
+  position: absolute;
+  border-width: 10px 10px;
+  border-style: solid;
+  border-color: transparent transparent #fff transparent;
+  right: 16px;
+  top: -19px;
+}
+
+.user-item {
+  display: block;
+  margin: 10px 0;
+}
+
+.user-item a:hover {
+  color: #d10024;
+}
+
+.user-item a {
+  color: #333;
+}
+
+.user-account:hover .user-menu {
+  display: block;
+}
+
+.main-nav.nav.py-3 li:nth-child(n + 13) {
+  display: none;
+}
+
+.btn-secondary {
+  margin: 0 10px;
+  width: 108px;
+}
+
+.cart_link:hover {
+  color: #fff;
+  opacity: 0.8;
+}

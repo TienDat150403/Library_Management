@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.a2m.back.dao.sys.book.Sys0201DAO">
+
+	<resultMap id="bookGenreResultMap" type="java.util.ArrayList">
+		<result property="bookCode" column="BOOKCODE" />
+		<result property="genre_id" column="GENRE_ID" />
+	</resultMap>
+
+	<select id="getBooks"
+		resultType="com.a2m.back.model.sys.book.BookTitle">
+
+		SELECT
+		BOOK_CODE as bookCode,
+		TITLE as title,
+		PUBLISHER as publisher,
+		PRICE as price,
+		PAGES as pages,
+		DESCRIPTION as description,
+		STATUS as
+		status,
+		AUTHOR as author,
+		CREATED_YEAR as createdYear,
+		CATEGORY as
+		category,
+		IMG as img
+		FROM DAUSACH
+		order by DATE_ADD desc
+
+		<!-- SELECT SACH.BOOK_CODE as bookCode, TITLE as title, PUBLISHER as publisher, 
+			PRICE as price, PAGES as pages, DESCRIPTION as description, SACH.STATUS as 
+			status, AUTHOR as author, CREATED_YEAR as createdYear, CATEGORY as category, 
+			COUNT(SACH.BOOK_CODE) AS quantity FROM DAUSACH JOIN SACH ON DAUSACH.BOOK_CODE 
+			= SACH.BOOK_CODE GROUP BY DAUSACH.BOOK_CODE, DAUSACH.title; -->
+	</select>
+
+	<select id='getBooksLimit' parameterType="map"
+		resultType="com.a2m.back.model.sys.book.BookTitle">
+
+		SELECT
+		DS.BOOK_CODE as bookCode,
+		DS.TITLE as title,
+		DS.PUBLISHER as
+		publisher,
+		DS.PRICE as price,
+		DS.PAGES as pages,
+		DS.DESCRIPTION as
+		description,
+		DS.STATUS as status,
+		DS.AUTHOR as author,
+		DS.CREATED_YEAR as
+		createdYear,
+		DS.CATEGORY as category,
+		DS.IMG as img
+		FROM DAUSACH AS DS
+		INNER JOIN LOAISACH_DAUSACH AS LSD ON DS.BOOK_CODE = LSD.BOOK_CODE
+	    INNER JOIN LOAISACH AS LS ON LSD.GENRE_ID = LS.GENRE_ID
+		WHERE DS.STATUS = 1
+		AND DS.TITLE LIKE CONCAT('%', #{search}, '%')
+		AND
+		AUTHOR LIKE CONCAT('%',
+		#{author}, '%')
+		<if test="authorList != null and authorList.length > 0">
+			AND DS.AUTHOR IN
+			<foreach collection="authorList" item="author" open="("
+				close=")" separator=",">
+				#{author}
+			</foreach>
+		</if>
+		AND LSD.GENRE_ID LIKE CONCAT('%', #{category}, '%')
+		AND LS.GENRE_NAME LIKE CONCAT('%', #{categoryByName}, '%')
+		GROUP BY
+		DS.book_code
+		<!-- LIMIT 12 OFFSET #{ignore}; -->
+
+
+	</select>
+
+
+	<!-- <select id='getBooksSearch' parameterType="map" resultType="com.a2m.back.model.sys.book.BookTitle"> 
+		SELECT DS.BOOK_CODE as bookCode, DS.TITLE as title, DS.PUBLISHER as publisher, 
+		DS.PRICE as price, DS.PAGES as pages, DS.DESCRIPTION as description, DS.STATUS 
+		as status, DS.AUTHOR as author, DS.CREATED_YEAR as createdYear, DS.CATEGORY 
+		as category, COUNT(S.book_code) AS quantity FROM DAUSACH AS DS LEFT JOIN 
+		SACH AS S ON DS.book_code = S.book_code WHERE DS.TITLE LIKE CONCAT('%', #{search}, 
+		'%') GROUP BY DS.book_code LIMIT 12 offset #{ignore} </select> -->
+
+	<update id="updateBook"
+		parameterType="com.a2m.back.model.sys.book.BookTitle">
+		UPDATE DAUSACH
+		SET TITLE=#{title},
+		PUBLISHER=#{publisher},
+		PRICE=#{price},
+		PAGES=#{pages},
+		DESCRIPTION=#{description},
+		STATUS=#{status},
+		AUTHOR=#{author},
+		CREATED_YEAR=#{createdYear},
+		CATEGORY=#{category}
+		WHERE
+		BOOK_CODE=#{bookCode}
+	</update>
+
+	<select id="checkBookExist"
+		parameterType="com.a2m.back.model.sys.book.BookTitle" resultType="int">
+		SELECT COUNT(*) FROM DAUSACH
+		WHERE TITLE=#{title} AND
+		AUTHOR=#{author}
+		AND
+		PUBLISHER=#{publisher}
+		AND
+		BOOK_CODE!=#{bookCode}
+	</select>
+
+	<select id="getBookInfo" parameterType="String"
+		resultType="com.a2m.back.model.sys.book.BookTitle">
+		SELECT
+		DS.BOOK_CODE as bookCode,
+		DS.TITLE as title,
+		DS.PUBLISHER as publisher,
+		DS.PRICE as price,
+		DS.PAGES as pages,
+		DS.DESCRIPTION as description,
+		DS.STATUS as status,
+		DS.AUTHOR as author,
+		DS.CREATED_YEAR as createdYear,
+		DS.CATEGORY as category,
+		DS.IMG as img,
+		COUNT(S.book_code) AS quantity
+		FROM DAUSACH AS DS
+
+		LEFT JOIN SACH AS S ON
+		DS.book_code = S.book_code
+		where DS.BOOK_CODE = #{bookCOde}
+		GROUP BY
+		DS.book_code
+	</select>
+
+	<insert id="addBookTitle"
+		parameterType="com.a2m.back.model.sys.book.BookTitle">
+		INSERT INTO DAUSACH (BOOK_CODE, TITLE, PUBLISHER, PRICE,
+		PAGES, DESCRIPTION, STATUS, AUTHOR, CREATED_YEAR, CATEGORY, DATE_ADD) VALUES (
+		#{bookCode},
+		#{title},
+		#{publisher},
+		#{price},
+		#{pages},
+		#{description},
+		#{status},
+		#{author},
+		#{createdYear},
+		#{category},
+		now()
+		)
+	</insert>
+
+
+
+	<update id="changeStatus"
+		parameterType="com.a2m.back.model.sys.book.BookTitle">
+		UPDATE DAUSACH
+		SET STATUS=#{status}
+		WHERE
+		BOOK_CODE=#{bookCode}
+	</update>
+
+	<insert id="addBookGenre">
+		INSERT INTO LOAISACH_DAUSACH (BOOK_CODE, GENRE_ID)
+		VALUES(
+		#{bookCode},
+		#{genre_id}
+		)
+	</insert>
+
+	<delete id="deleteBookGenre" parameterType="String">
+		DELETE FROM
+		LOAISACH_DAUSACH WHERE BOOK_CODE = #{bookCode}
+	</delete>
+
+	<select id="getBookTitleByGenre" parameterType="int"
+		resultType="com.a2m.back.model.sys.book.BookTitle">
+
+		SELECT
+		BOOK_CODE as bookCode,
+		TITLE as title,
+		PUBLISHER as
+		publisher,
+		PRICE as price,
+		PAGES as pages,
+		DESCRIPTION as description,
+		STATUS as
+		status,
+		AUTHOR as author,
+		CREATED_YEAR as createdYear,
+		CATEGORY
+		as
+		category,
+		IMG as img
+		FROM DAUSACH WHERE BOOK_CODE IN (
+		SELECT BOOK_CODE
+		FROM LOAISACH_DAUSACH WHERE GENRE_ID = #{genre_id}
+		)
+		limit 5 offset
+		#{ignore}
+
+	</select>
+
+	<!-- SELECT SACH.BOOK_CODE as bookCode, TITLE as title, PUBLISHER as publisher, 
+		PRICE as price, PAGES as pages, DESCRIPTION as description, SACH.STATUS as 
+		status, AUTHOR as author, CREATED_YEAR as createdYear, CATEGORY as category, 
+		COUNT(SACH.BOOK_CODE) AS quantity FROM DAUSACH JOIN SACH ON DAUSACH.BOOK_CODE 
+		= SACH.BOOK_CODE GROUP BY DAUSACH.BOOK_CODE, DAUSACH.title; -->
+
+	<!-- <select id='countTotalBookTitle' parameterType="String"> select count(*) 
+		as total_count from ( SELECT count(*) FROM DAUSACH AS DS INNER JOIN LOAISACH_DAUSACH 
+		AS LSD ON DS.BOOK_CODE = LSD.BOOK_CODE WHERE DS.TITLE LIKE CONCAT('%', #{search}, 
+		'%') AND DS.AUTHOR LIKE CONCAT('%', #{author}, '%') AND LSD.GENRE_ID LIKE 
+		CONCAT('%', #{category}, '%') GROUP BY DS.book_code) as quantiy ; </select> -->
+
+	<select id='countTotalBookTitle' parameterType="map">
+		select count(*) as total_count from (
+		SELECT count(*)
+		FROM DAUSACH AS DS
+		INNER JOIN LOAISACH_DAUSACH AS LSD ON DS.BOOK_CODE = LSD.BOOK_CODE
+		INNER JOIN LOAISACH AS LS ON LSD.GENRE_ID = LS.GENRE_ID
+		WHERE DS.STATUS = 1
+		AND DS.TITLE LIKE CONCAT('%', #{search}, '%')
+		AND
+		AUTHOR LIKE CONCAT('%',
+		#{author}, '%')
+		<if test="authorList != null and authorList.length > 0">
+			AND DS.AUTHOR IN
+			<foreach collection="authorList" item="author" open="("
+				close=")" separator=",">
+				#{author}
+			</foreach>
+		</if>
+		AND LSD.GENRE_ID LIKE CONCAT('%', #{category}, '%')
+		AND LS.GENRE_NAME LIKE CONCAT('%', #{categoryByName}, '%')
+		GROUP BY
+		DS.book_code
+		) as quantiy ;
+	</select>
+
+	<update id="addCover" parameterType="String">
+		UPDATE DAUSACH SET IMG =
+		#{imgFileName} WHERE BOOK_CODE = #{bookCode}
+	</update>
+
+	<select id='getAuthor'>
+		<!-- SELECT author, COUNT(*) AS total_books FROM DAUSACH GROUP BY author 
+			ORDER BY total_books DESC LIMIT 5; -->
+		SELECT author
+		FROM DAUSACH
+		GROUP BY author
+		ORDER BY COUNT(*) DESC
+		LIMIT 5;
+	</select>
+	
+	<select id="countBooksAvailable" parameterType="String">
+		SELECT COUNT(*) FROM SACH
+		WHERE BOOK_CODE=#{bookCode}
+		AND STATUS = 1
+		AND BOOK_ID NOT IN (
+		SELECT BOOK_ID FROM SACHMUON
+		WHERE SUBSTRING(BOOK_ID, 1, 4) = #{bookCode}
+		AND STATUS = 0
+		)
+	</select>
+
+</mapper>

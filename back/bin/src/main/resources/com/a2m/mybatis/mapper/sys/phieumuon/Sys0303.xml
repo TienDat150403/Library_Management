@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.a2m.back.dao.sys.phieumuon.Sys0303DAO">
+
+    <select id="getDetailPhieuMuon" parameterType="int">
+        select USER_UID as userUid, ID_PHIEU_MUON as idPhieuMuon, STATUS as status, EXTENDED_TIMES as extended_times,
+        CREATED_DATE as createdDate, BORROW_DATE as borrowDate, RETURN_DATE_ESTIMATE as returnDateEstimate,
+        RETURN_UPDATE_REAL as returnUpdateReal, FINE as fine, CANCEL_DATE as cancelDate
+        from PHIEUMUON
+        where ID_PHIEU_MUON = #{idPhieuMuon}
+    </select>
+
+    <select id="getAllBook" parameterType="int">
+        SELECT DS.*, SM.BOOK_ID as book_id
+        FROM SACHMUON AS SM
+        JOIN PHIEUMUON AS PM ON SM.ID_PHIEU_MUON = PM.ID_PHIEU_MUON
+        JOIN SACH AS S ON SM.BOOK_ID = S.BOOK_ID
+        JOIN DAUSACH AS DS ON S.BOOK_CODE = DS.BOOK_CODE
+        WHERE PM.ID_PHIEU_MUON = #{idPhieuMuon};
+    </select>
+
+    <update id="changeStatusToReturnBook" parameterType="map">
+        UPDATE PHIEUMUON pm
+        JOIN SACHMUON AS sm ON pm.ID_PHIEU_MUON = sm.ID_PHIEU_MUON
+        JOIN SACH AS s ON sm.BOOK_ID = s.BOOK_ID
+        SET pm.STATUS = 2,sm.STATUS = 2, RETURN_UPDATE_REAL = NOW(), FINE = #{fine, jdbcType=BIGINT}
+        WHERE pm.ID_PHIEU_MUON = #{idPhieuMuon, jdbcType = INTEGER} ;
+    </update>
+
+    <select id="getListBookIdByIdPhieuMuon" parameterType="int">
+        select BOOK_ID from SACHMUON where ID_PHIEU_MUON = #{idPhieuMuon};
+    </select>
+
+    <update id="changeToDisable" parameterType="String">
+        update SACH
+        SET status = 0
+        WHERE BOOK_ID  = #{book_id}
+    </update>
+</mapper>

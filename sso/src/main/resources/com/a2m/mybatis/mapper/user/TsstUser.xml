@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.a2m.sso.dao.UserDAO">
+	<parameterMap type="com.a2m.sso.model.UserResponse" id="userResponseParameterMap">
+		<parameter property="userUid" javaType="java.lang.String"/>
+		<parameter property="userId" javaType="java.lang.String"/>
+		<parameter property="pwd" javaType="java.lang.String"/>
+		<parameter property="createdDate" javaType="java.util.Date"/>
+		<parameter property="createdBy" javaType="java.lang.String"/>
+		<parameter property="pwdExpr" javaType="java.util.Date"/>
+		<parameter property="updatedBy" javaType="java.lang.String"/>
+		<parameter property="updatedDate" javaType="java.util.Date"/>
+		<parameter property="status" javaType="java.lang.String"/>
+		<parameter property="userInfoId" javaType="java.lang.Long"/>
+		<parameter property="email" javaType="java.lang.String"/>
+		<parameter property="cellPhone" javaType="java.lang.String"/>
+		<parameter property="dob" javaType="java.util.Date"/>
+		<parameter property="fullName" javaType="java.lang.String"/>
+		<parameter property="address" javaType="java.lang.String"/>
+		<parameter property="gender" javaType="boolean"/>
+		<parameter property="imgPath" javaType="java.lang.String"/>
+		<parameter property="verifyKey" javaType="java.lang.String"/>
+		<parameter property="twoFAEnable" javaType="boolean"/>
+		<parameter property="twoFAKey" javaType="java.lang.String"/>
+		<parameter property="emailVerifyKey" javaType="java.lang.String"/>
+		<parameter property="authProvider" javaType="java.lang.String"/>
+		<parameter property="organization" javaType="java.lang.String"/>
+		<parameter property="position" javaType="java.lang.String"/>
+	</parameterMap>
+
+	<select id="getUserByUserId" parameterType="String"
+		resultType="com.a2m.sso.model.UserResponse">
+		SELECT T1.USER_UID as userUid,
+		T1.USER_ID as userId,
+		<!-- T1.CREATED_BY as createdBy, T1.CREATED_DATE as createdDate, -->
+		T1.PWD as pwd,
+		<!-- T1.UPDATED_DATE as updatedDate, T1.UPDATED_BY as updatedBy, T1.PWD_EXPR
+			as pwdExpr, -->
+		T1.STATUS as status
+		<!-- T1.USER_INFO_ID as userInfoId, T1.AUTH_PROVIDER as authProvider, -->
+		<!-- T2.EMAIL as email, T2.CELL_PHONE as cellPhone, T2.DOB as dob, T2.FULL_NAME
+			as fullName, T2.ADDRESS as address, T2.GENDER as gender, T2.IMG_PATH as imgPath,
+			T2.2FA_ENABLE as twoFAEnable, T2.2FA_KEY as twoFAKey, T2.EMAIL_VERIFY_KEY
+			as emailVerifyKey, T2.ORGANIZATION as organization, T2.POSITION as position -->
+		FROM USER T1
+		<!-- LEFT JOIN USER_INFO T2 ON T1.USER_INFO_ID = T2.USER_INFO_ID -->
+		WHERE
+		T1.USER_ID = #{userId}
+	</select>
+
+	<!-- Get user information by userUid -->
+	<select id="getUserInfoByUserUid" parameterType="String"
+		resultType="com.a2m.sso.model.UserResponse">
+		SELECT T1.USER_UID as userUid,
+		T1.USER_ID as userId,
+		<!-- T1.CREATED_BY as createdBy, T1.CREATED_DATE as createdDate, -->
+		T1.PWD as pwd,
+		<!-- T1.UPDATED_DATE as updatedDate, T1.UPDATED_BY as updatedBy, T1.PWD_EXPR 
+			as pwdExpr, -->
+		T1.STATUS as status,
+		<!-- T1.USER_INFO_ID as userInfoId, T1.AUTH_PROVIDER as authProvider, -->
+		T2.EMAIL as email,
+		T2.PHONE as cellPhone,
+		T2.DOB as dob,
+		T2.FULL_NAME as fullName,
+		T2.ADDRESS as address,
+		T2.GENDER as gender,
+		T2.IMG_PATH as imgPath
+		<!-- T2.2FA_ENABLE as twoFAEnable, 
+		T2.2FA_KEY as twoFAKey,-->
+		<!-- T2.EMAIL_VERIFY_KEY as emailVerifyKey,  -->
+		<!-- T2.ORGANIZATION as organization, T2.POSITION as position -->
+		FROM USER T1 LEFT JOIN USER_INFO T2 ON T1.USER_UID =
+		T2.USER_UID
+		WHERE T1.USER_UID = #{userUid}
+	</select>
+
+	<update id="updateUserInfoByUserUid"
+		parameterType="com.a2m.sso.model.UserResponse">
+
+		UPDATE USER_INFO
+		set full_name = IF(#{fullName} IS NOT NULL, #{fullName}, full_name),
+		gender = IF(#{gender} IS NOT NULL, #{gender}, gender),
+		dob = IF(#{dob} IS NOT NULL, #{dob}, dob),
+		email = IF(#{email} IS NOT NULL, #{email}, email),
+		address = IF(#{address} IS NOT NULL, #{address}, address),
+		img_path = IF(#{imgPath} IS NOT NULL, #{imgPath}, img_path),
+		verify_key = IF(#{verifyKey} IS NOT NULL, #{verifyKey}, verify_key),
+		PHONE = IF(#{cellPhone} IS NOT NULL, #{cellPhone}, PHONE),
+		updated_date = #{updatedDate}
+		where user_uid
+		= #{userUid}
+	</update>
+
+	<insert id="insertUser"
+		parameterType="com.a2m.sso.model.req.SignUpReq">
+		INSERT INTO USER
+		(
+		USER_UID,
+		USER_ID,
+		PWD,
+		STATUS
+		)
+		VALUES
+		(
+		#{userUid},
+		#{username},
+		#{password},
+		"02-04"
+		);
+	</insert>
+
+	<insert id="insertUserInfo"
+		parameterType="com.a2m.sso.model.req.SignUpReq">
+
+		INSERT INTO USER_INFO
+		(
+		USER_UID,
+		FULL_NAME,
+		GENDER,
+		DOB,
+		PHONE,
+		EMAIL,
+		ADDRESS,
+		IMG_PATH,
+		VERIFY_KEY,
+		CREATED_DATE,
+		UPDATED_DATE
+		)
+		VALUES
+		(
+		#{userUid},
+		#{fullname},
+		"",
+		"2002-06-25",
+		"",
+		#{email},
+		"",
+		"",
+		#{verifyKey},
+		"2020-06-25",
+		"2022-06-25"
+		);
+	</insert>
+	<!-- <insert id="insertUserDAO" parameterType="com.a2m.sso.model.req.SignUpReq"> 
+		INSERT INTO USER ( USER_UID, USER_ID, PWD, STATUS ) VALUES ( #{userUid}, 
+		#{username}, #{password}, "02-04" ); INSERT INTO USER_INFO ( USER_UID, 
+		FULL_NAME, GENDER, DOB, PHONE, EMAIL, ADDRESS, IMG_PATH, VERIFY_KEY, CREATED_DATE, 
+		UPDATED_DATE ) VALUES ( #{userUid}, #{fullname}, "", "2002-06-25", "", #{email}, 
+		"", "", #{verifyKey}, "2020-06-25", "2022-06-25" ); </insert> -->
+
+	<update id="updateStatusUser" parameterType="String">
+		UPDATE USER t
+		JOIN USER_INFO t2 ON t.user_uid = t2.user_uid
+		SET t.status =
+		"02-03"
+		WHERE t2.verify_key = #{verifyKey};
+	</update>
+
+	<update id="diActiveUser" parameterType="map">
+		UPDATE USER
+		SET STATUS = "02-04"
+		WHERE USER_UID = #{USER_UID, jdbcType=BIGINT};
+	</update>
+
+	<update id="updateVerifyKeyNull">
+		UPDATE USER_INFO AS main
+		INNER JOIN (
+		SELECT
+		user_uid
+		FROM USER_INFO
+		WHERE verify_key = #{verifyKey}
+		) AS
+		subquery ON main.user_uid = subquery.user_uid
+		SET main.verify_key = "";
+
+	</update>
+	<select id="isEmailExists" parameterType="String">
+		SELECT EXISTS (SELECT 1
+		FROM USER_INFO WHERE email = #{email});
+	</select>
+
+	<select id="isUsernameExists" parameterType="String">
+		SELECT EXISTS
+		(SELECT 1 FROM USER WHERE user_id = #{user_id});
+	</select>
+
+	<select id="isActivate" parameterType="String">
+		select exists
+		(select *
+		from USER
+		where USER_ID = #{user_id} and STATUS = "02-03")
+	</select>
+
+	<update id="updateVerifyKeyByUserId"
+		parameterType="java.util.Map">
+		UPDATE USER_INFO
+		SET verify_key = #{verifyKey},
+		expired_key = #{expiredKey}
+		WHERE user_uid = (
+		SELECT user_uid
+		FROM
+		USER
+		WHERE user_id = #{user_id}
+		)
+	</update>
+
+	<update id="updateExpiredKeyByUserId"
+		parameterType="java.util.Date">
+
+		UPDATE USER_INFO
+		SET expired_key = #{expiredKey}
+		WHERE user_uid = (
+		SELECT user_uid
+		FROM USER
+		WHERE
+		user_id =
+		#{user_id}
+		)
+	</update>
+
+	<select id="isExpiredKey" parameterType="String"
+		resultType="boolean">
+		SELECT CASE
+		WHEN NOW() > DATE_ADD(expiredKey, INTERVAL 10
+		MINUTE)
+		THEN 1
+		ELSE 0
+		END AS isExpired
+		FROM USER_INFO
+		WHERE verify_key
+		= #{verifyKey}
+	</select>
+
+	<update id="updatePasswordByVerifyKey"
+		parameterType="com.a2m.sso.model.req.NewPassword">
+		UPDATE USER
+		SET PWD = #{password}
+		WHERE user_uid =
+		(SELECT user_uid
+		FROM USER_INFO
+		WHERE verify_key = #{verifyKey})
+	</update>
+
+	<select id='getListUserInfo'
+		parameterMap="userResponseParameterMap" parameterType="map" >
+		SELECT T1.USER_UID as userUid,
+		T1.USER_ID as userId,
+		T1.PWD as pwd,
+		T1.STATUS as status,
+		T2.EMAIL as email,
+		T2.PHONE as cellPhone,
+		T2.DOB as dob,
+		T2.FULL_NAME as fullName,
+		T2.ADDRESS as address,
+		T2.GENDER as gender,
+		T2.IMG_PATH as imgPath
+		FROM USER T1 LEFT JOIN USER_INFO T2 ON T1.USER_UID =
+		T2.USER_UID
+		where status = #{status}
+		limit 10 offset #{ignore}
+	</select>
+
+	<select id='searchByUserId'
+			parameterMap="userResponseParameterMap" parameterType="String" >
+		SELECT T1.USER_UID as userUid,
+		T1.USER_ID as userId,
+		T1.PWD as pwd,
+		T1.STATUS as status,
+		T2.EMAIL as email,
+		T2.PHONE as cellPhone,
+		T2.DOB as dob,
+		T2.FULL_NAME as fullName,
+		T2.ADDRESS as address,
+		T2.GENDER as gender,
+		T2.IMG_PATH as imgPath
+		FROM USER T1 LEFT JOIN USER_INFO T2 ON T1.USER_UID =
+		T2.USER_UID
+		WHERE T1.USER_ID LIKE CONCAT('%', #{USER_ID}, '%')
+	</select>
+
+	<select id="getCountUser" parameterType="String">
+		select count(*) from USER where STATUS = #{status}
+	</select>
+		<update id="addUserCover">
+		UPDATE USER_INFO SET IMG_PATH = #{imgFileName} WHERE USER_UID = #{userUid}
+	</update>
+</mapper>

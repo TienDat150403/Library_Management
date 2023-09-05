@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.a2m.sso.dao.ComSeqDAO">
+
+
+    <select id="setSeq" parameterType="String">
+   <!--  gọi 1 thủ tục proc_gen_id với 1 tham số nhập 'seqName' và 1 biến xuất '@result' -->
+        CALL proc_gen_id(#{seqName}, @result);
+    </select>
+
+    <select id="getSeq" resultType="String">
+        SELECT @result
+    </select>
+
+</mapper>
